@@ -1,5 +1,3 @@
-from django.shortcuts import render, redirect
-
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
@@ -10,6 +8,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.core.paginator import Paginator
 
+from .models import User
+
 
 
 # Create your views here.
@@ -17,4 +17,58 @@ from django.core.paginator import Paginator
 def index(request):
 
     pass
-    return render(request, "finance_portal/index2.html")
+    return render(request, "finance_portal/dashboard.html")
+
+
+
+def register(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+
+        # Ensure password matches confirmation
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "finance_portal/register.html", {
+                "message": "Passwords must match."
+            })
+
+        # Attempt to create new user
+        try:
+            user = User.objects.create_user(email, email, password)
+            user.save()
+        except IntegrityError as e:
+            print(e)
+            return render(request, "finance_portal/register.html", {
+                "message": "Email address already taken."
+            })
+        login(request, user)
+        return HttpResponseRedirect(reverse("dashboard"))
+    else:
+        return render(request, "finance_portal/register.html")
+
+
+def login_view(request):
+    if request.method == "POST":
+        # Attempt to sign user in
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = authenticate(request, username=email, password=password)
+
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            print("yes")
+            return HttpResponseRedirect(reverse("dashboard"))
+        else:
+            return render(request, "finance_portal/login.html", {
+                "message": "Invalid email and/or password."
+            })
+    else:
+        return render(request, "finance_portal/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("login"))
+
