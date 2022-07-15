@@ -1,0 +1,1252 @@
+{% extends "finance_portal/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+
+        <main>
+
+            <div class="dashboard-view">
+
+                <h1>Dashboard</h1>
+
+                <div class="insights">
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Total</h2>
+                            </div>
+                            
+                            <hr>
+                            <div >
+                                <h3>Investable Assets</h3>
+                                <h1 id="investable_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Crypto</h3>
+                                <h1 id="crypto_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Cash</h3>
+                                <h1 id="cash_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Personal Assets</h3>
+                                <h1 id="personal_dashboard"></h1>
+                            </div>
+                            
+                            <div>
+                                <h3>Liabilities</h3>
+                                <h1 id="liabilities_dashboard"></h1>
+                            </div>
+
+                            <hr>
+                                                    
+                            <div class="dashboard-total-last">
+                                <h2>Total Net Worth</h2>
+                                <h1 id="networth_dashboard"></h1>
+                            </div>
+
+
+
+                            <small>As of: </small>
+                            <small class="text-muted"></small>
+                    </div>
+
+
+                    <div class="dashboard-pie">
+       
+                            <div class="dashboard-title">
+                                <h2>Asset Breakdown</h2>
+                            </div>
+
+                            <div>
+                                <canvas id="myChart_2" height="600" ></canvas>
+                            </div>
+                            
+                        <small class="text-muted">From Beginning</small>
+                    </div>
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Infographic</h2>
+                            </div>
+
+                            <div>
+                                <h3>Average Period Increase</h3>
+                                <h1 id="average_period_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Amount Change Since Beginning</h3>
+                                <h1 id="amount_change_dashboard"></h1>
+                            </div>
+
+
+
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="myChart">
+                    <canvas id="myChart" height="100" width="300"></canvas>
+                    From:
+                    <input type="date" id="startdate">
+                    To:
+                    <input type="date" id="enddate">
+                </div>       
+
+                <div class="entries">
+                    <h2>Entries</h2>
+
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="4">Investable Assets</th>
+                                <th colspan="3">Crypto</th>
+                                <th colspan="4">Cash</th>
+                                <th colspan="4">Personal Assets</th>
+                                <th colspan="4">Liabilities</th>
+                                <th colspan="3">Networth</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Taxable ($)</th>
+                                <th>TFSA ($)</th>
+                                <th>RRSP ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Bitcoin ($)</th>
+                                <th>Ethereum ($)</th>
+                                <th>Other ($)</th>
+                          
+
+
+                                <th>Cash ($)</th>
+                                <th>Checking ($)</th>
+                                <th>Savings ($)</th>
+                                <th>Other Accounts ($)</th>
+
+                                <th>Principal Residence ($)</th>
+                                <th>Auto ($)</th>
+                                <th>Other Properties ($)</th>
+                                <th>Physical Goods ($)</th>
+
+                                <th>Mortgages ($)</th>
+                                <th>Credit Card Debt ($)</th>
+                                <th>Loans ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Change Since Last ($)</th>
+                                <th>% Change Since Last </th>
+                                
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div class="investable-view">
+
+                <h1>Investable Assets</h1>
+
+                <div class="insights">
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Total</h2>
+                            </div>
+                            
+                            <hr>
+                            <div >
+                                <h3>Taxable</h3>
+                                <h1 id="taxable_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>TFSA</h3>
+                                <h1 id="tfsa_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>RRSP</h3>
+                                <h1 id="rrsp_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Other Investable Assets</h3>
+                                <h1 id="other_investable_dashboard"></h1>
+                            </div>
+                            
+                            <hr>
+                                                    
+                            <div class="dashboard-total-last">
+                                <h2>Total Investable Assets</h2>
+                                <h1 id="total_investable_dashboard"></h1>
+                            </div>
+
+
+
+                            <small>As of: </small>
+                            <small class="text-muted"></small>
+                    </div>
+
+
+                    <div class="dashboard-pie">
+       
+                            <div class="dashboard-title">
+                                <h2>Asset Breakdown</h2>
+                            </div>
+
+                            <div>
+                                <canvas id="pie_investable" height="600" ></canvas>
+                            </div>
+                            
+                        <small class="text-muted">From Beginning</small>
+                    </div>
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Infographic</h2>
+                            </div>
+
+                            <div>
+                                <h3>Average Period Increase</h3>
+                                <h1 id="average_period_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Amount Change Since Beginning</h3>
+                                <h1 id="amount_change_dashboard"></h1>
+                            </div>
+
+
+
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="myChart">
+                    <canvas id="myChart_investable" height="100" width="300"></canvas>
+                    From:
+                    <input type="date" id="startdate">
+                    To:
+                    <input type="date" id="enddate">
+                </div>
+                
+
+                <div class="entries">
+                    <h2>Entries</h2>
+
+                    <table class="investable-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="4">Investable Assets</th>
+    
+                                <th colspan="3">Total</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Taxable ($)</th>
+                                <th>TFSA ($)</th>
+                                <th>RRSP ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Total Investable Assets ($)</th>
+                                <th>Change Since Last ($)</th>
+                                <th>% Change Since Last </th>
+                                
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div class="crypto-view">
+
+                <h1>Cryptocurrency</h1>
+
+                <div class="insights">
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Total</h2>
+                            </div>
+                            
+                            <hr>
+                            <div >
+                                <h3>Bitcoin</h3>
+                                <h1 id="bitcoin_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Ethereum</h3>
+                                <h1 id="ethereum_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Other Cryptocurrencies</h3>
+                                <h1 id="other_crypto_dashboard"></h1>
+                            </div>
+
+                            <hr>
+                                                    
+                            <div class="dashboard-total-last">
+                                <h2>Total Cryptocurrency</h2>
+                                <h1 id="total_crypto_dashboard"></h1>
+                            </div>
+
+
+
+                            <small>As of: </small>
+                            <small class="text-muted"></small>
+                    </div>
+
+
+                    <div class="dashboard-pie">
+       
+                            <div class="dashboard-title">
+                                <h2>Asset Breakdown</h2>
+                            </div>
+
+                            <div>
+                                <canvas id="myChart_2" height="600" ></canvas>
+                            </div>
+                            
+                        <small class="text-muted">From Beginning</small>
+                    </div>
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Infographic</h2>
+                            </div>
+
+                            <div>
+                                <h3>Average Period Increase</h3>
+                                <h1 id="average_period_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Amount Change Since Beginning</h3>
+                                <h1 id="amount_change_dashboard"></h1>
+                            </div>
+
+
+
+                    </div>
+                    
+                    
+                </div>
+
+
+
+                <div class="myChart">
+                    <canvas id="myChart" height="100" width="300"></canvas>
+                    From:
+                    <input type="date" id="startdate">
+                    To:
+                    <input type="date" id="enddate">
+                </div>
+                
+
+
+
+                <div class="entries">
+                    <h2>Entries</h2>
+
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="4">Investable Assets</th>
+                                <th colspan="3">Crypto</th>
+                                <th colspan="4">Cash</th>
+                                <th colspan="4">Personal Assets</th>
+                                <th colspan="4">Liabilities</th>
+                                <th colspan="3">Networth</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Taxable ($)</th>
+                                <th>TFSA ($)</th>
+                                <th>RRSP ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Bitcoin ($)</th>
+                                <th>Ethereum ($)</th>
+                                <th>Other ($)</th>
+                          
+
+
+                                <th>Cash ($)</th>
+                                <th>Checking ($)</th>
+                                <th>Savings ($)</th>
+                                <th>Other Accounts ($)</th>
+
+                                <th>Principal Residence ($)</th>
+                                <th>Auto ($)</th>
+                                <th>Other Properties ($)</th>
+                                <th>Physical Goods ($)</th>
+
+                                <th>Mortgages ($)</th>
+                                <th>Credit Card Debt ($)</th>
+                                <th>Loans ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Change Since Last ($)</th>
+                                <th>% Change Since Last </th>
+                                
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="cash-view">
+
+                <h1>Cash</h1>
+
+                <div class="insights">
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Total</h2>
+                            </div>
+                            
+                            <hr>
+                            <div >
+                                <h3>Hard Cash</h3>
+                                <h1 id="cash_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Checkings</h3>
+                                <h1 id="checkings_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Savings</h3>
+                                <h1 id="savings_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Other Cash</h3>
+                                <h1 id="other_cash_dashboard"></h1>
+                            </div>
+                  
+
+                            <hr>
+                                                    
+                            <div class="dashboard-total-last">
+                                <h2>Total Cash</h2>
+                                <h1 id="total_cash_dashboard"></h1>
+                            </div>
+
+
+
+                            <small>As of: </small>
+                            <small class="text-muted"></small>
+                    </div>
+
+
+                    <div class="dashboard-pie">
+       
+                            <div class="dashboard-title">
+                                <h2>Asset Breakdown</h2>
+                            </div>
+
+                            <div>
+                                <canvas id="myChart_2" height="600" ></canvas>
+                            </div>
+                            
+                        <small class="text-muted">From Beginning</small>
+                    </div>
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Infographic</h2>
+                            </div>
+
+                            <div>
+                                <h3>Average Period Increase</h3>
+                                <h1 id="average_period_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Amount Change Since Beginning</h3>
+                                <h1 id="amount_change_dashboard"></h1>
+                            </div>
+
+
+
+                    </div>
+                    
+                    
+                </div>
+
+
+
+                <div class="myChart">
+                    <canvas id="myChart" height="100" width="300"></canvas>
+                    From:
+                    <input type="date" id="startdate">
+                    To:
+                    <input type="date" id="enddate">
+                </div>
+                
+
+
+
+                <div class="entries">
+                    <h2>Entries</h2>
+
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="4">Investable Assets</th>
+                                <th colspan="3">Crypto</th>
+                                <th colspan="4">Cash</th>
+                                <th colspan="4">Personal Assets</th>
+                                <th colspan="4">Liabilities</th>
+                                <th colspan="3">Networth</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Taxable ($)</th>
+                                <th>TFSA ($)</th>
+                                <th>RRSP ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Bitcoin ($)</th>
+                                <th>Ethereum ($)</th>
+                                <th>Other ($)</th>
+                          
+
+
+                                <th>Cash ($)</th>
+                                <th>Checking ($)</th>
+                                <th>Savings ($)</th>
+                                <th>Other Accounts ($)</th>
+
+                                <th>Principal Residence ($)</th>
+                                <th>Auto ($)</th>
+                                <th>Other Properties ($)</th>
+                                <th>Physical Goods ($)</th>
+
+                                <th>Mortgages ($)</th>
+                                <th>Credit Card Debt ($)</th>
+                                <th>Loans ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Change Since Last ($)</th>
+                                <th>% Change Since Last </th>
+                                
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="personal-assets-view">
+
+                <h1>Personal Assets</h1>
+
+                <div class="insights">
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Total</h2>
+                            </div>
+                            
+                            <hr>
+                            <div >
+                                <h3>Principal Residence</h3>
+                                <h1 id="principal_residence_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Auto</h3>
+                                <h1 id="auto_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Other Properties</h3>
+                                <h1 id="other_properties_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Physical Goods</h3>
+                                <h1 id="goods_dashboard"></h1>
+                            </div>
+                            
+                            <hr>
+                                                    
+                            <div class="dashboard-total-last">
+                                <h2>Total Personal Assets</h2>
+                                <h1 id="total_personal_dashboard"></h1>
+                            </div>
+
+
+
+                            <small>As of: </small>
+                            <small class="text-muted"></small>
+                    </div>
+
+
+                    <div class="dashboard-pie">
+       
+                            <div class="dashboard-title">
+                                <h2>Asset Breakdown</h2>
+                            </div>
+
+                            <div>
+                                <canvas id="myChart_2" height="600" ></canvas>
+                            </div>
+                            
+                        <small class="text-muted">From Beginning</small>
+                    </div>
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Infographic</h2>
+                            </div>
+
+                            <div>
+                                <h3>Average Period Increase</h3>
+                                <h1 id="average_period_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Amount Change Since Beginning</h3>
+                                <h1 id="amount_change_dashboard"></h1>
+                            </div>
+
+
+
+                    </div>
+                    
+                    
+                </div>
+
+
+
+                <div class="myChart">
+                    <canvas id="myChart" height="100" width="300"></canvas>
+                    From:
+                    <input type="date" id="startdate">
+                    To:
+                    <input type="date" id="enddate">
+                </div>
+                
+
+
+
+                <div class="entries">
+                    <h2>Entries</h2>
+
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="4">Investable Assets</th>
+                                <th colspan="3">Crypto</th>
+                                <th colspan="4">Cash</th>
+                                <th colspan="4">Personal Assets</th>
+                                <th colspan="4">Liabilities</th>
+                                <th colspan="3">Networth</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Taxable ($)</th>
+                                <th>TFSA ($)</th>
+                                <th>RRSP ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Bitcoin ($)</th>
+                                <th>Ethereum ($)</th>
+                                <th>Other ($)</th>
+                          
+
+
+                                <th>Cash ($)</th>
+                                <th>Checking ($)</th>
+                                <th>Savings ($)</th>
+                                <th>Other Accounts ($)</th>
+
+                                <th>Principal Residence ($)</th>
+                                <th>Auto ($)</th>
+                                <th>Other Properties ($)</th>
+                                <th>Physical Goods ($)</th>
+
+                                <th>Mortgages ($)</th>
+                                <th>Credit Card Debt ($)</th>
+                                <th>Loans ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Change Since Last ($)</th>
+                                <th>% Change Since Last </th>
+                                
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="liability-view">
+
+                <h1>Liabilities</h1>
+
+                <div class="insights">
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Total</h2>
+                            </div>
+                            
+                            <hr>
+                            <div >
+                                <h3>Mortgages</h3>
+                                <h1 id="mortgage_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Consumer Debt</h3>
+                                <h1 id="consumer_debt_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Loans</h3>
+                                <h1 id="loan_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Other Debt</h3>
+                                <h1 id="other_debt_dashboard"></h1>
+                            </div>
+
+                            <hr>
+                                                    
+                            <div class="dashboard-total-last">
+                                <h2>Total Debt</h2>
+                                <h1 id="total_debt_dashboard"></h1>
+                            </div>
+
+
+
+                            <small>As of: </small>
+                            <small class="text-muted"></small>
+                    </div>
+
+
+                    <div class="dashboard-pie">
+       
+                            <div class="dashboard-title">
+                                <h2>Asset Breakdown</h2>
+                            </div>
+
+                            <div>
+                                <canvas id="myChart_2" height="600" ></canvas>
+                            </div>
+                            
+                        <small class="text-muted">From Beginning</small>
+                    </div>
+
+                    <div class="dashboard-total">
+
+                            <div class="dashboard-title">
+                                <h2>Infographic</h2>
+                            </div>
+
+                            <div>
+                                <h3>Average Period Increase</h3>
+                                <h1 id="average_period_dashboard"></h1>
+                            </div>
+
+                            <div>
+                                <h3>Amount Change Since Beginning</h3>
+                                <h1 id="amount_change_dashboard"></h1>
+                            </div>
+
+
+
+                    </div>
+                    
+                    
+                </div>
+
+
+
+                <div class="myChart">
+                    <canvas id="myChart" height="100" width="300"></canvas>
+                    From:
+                    <input type="date" id="startdate">
+                    To:
+                    <input type="date" id="enddate">
+                </div>
+                
+
+
+
+                <div class="entries">
+                    <h2>Entries</h2>
+
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="4">Investable Assets</th>
+                                <th colspan="3">Crypto</th>
+                                <th colspan="4">Cash</th>
+                                <th colspan="4">Personal Assets</th>
+                                <th colspan="4">Liabilities</th>
+                                <th colspan="3">Networth</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Taxable ($)</th>
+                                <th>TFSA ($)</th>
+                                <th>RRSP ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Bitcoin ($)</th>
+                                <th>Ethereum ($)</th>
+                                <th>Other ($)</th>
+                          
+
+
+                                <th>Cash ($)</th>
+                                <th>Checking ($)</th>
+                                <th>Savings ($)</th>
+                                <th>Other Accounts ($)</th>
+
+                                <th>Principal Residence ($)</th>
+                                <th>Auto ($)</th>
+                                <th>Other Properties ($)</th>
+                                <th>Physical Goods ($)</th>
+
+                                <th>Mortgages ($)</th>
+                                <th>Credit Card Debt ($)</th>
+                                <th>Loans ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Change Since Last ($)</th>
+                                <th>% Change Since Last </th>
+                                
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div class="entry-view">
+
+                <h1>Net Worth Entry</h1> <br>
+
+                <form id="compose-form" class="form">
+
+                    <div class="form-container">
+
+                        <h2>Savings and Investments:</h2>
+
+                        <div class="form-group">
+                            Non-Registered investments (Taxable):
+
+                            <span class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                <span class="number-input">
+                                    <span class="dollar-symbol">$</span>
+                                    <input type="number" id="demo" class="submit-taxable" value=0>
+                                </span>
+                            </span>                                
+                        </div>
+
+                        <div class="form-group">
+                            Tax-free savings account (TFSA):
+                        
+                            <span class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                <span class="number-input">
+                                    <span class="dollar-symbol">$</span>
+                                    <input type="number" id="demo" class="submit-tfsa" value=0 >
+                                </span>
+                            </span>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            Registered Retirement Savings (ex: RRSP): 
+
+                            <span class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                <span class="number-input">
+                                    <span class="dollar-symbol">$</span>
+                                    <input type="number" id="demo" class="submit-rrsp" value=0>
+                                </span>
+                            </span>
+                        
+                        </div>
+
+
+                        <div class="form-group">
+                            Other: 
+                            <span class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                <span class="number-input">
+                                    <span class="dollar-symbol">$</span>
+                                    <input type="number" id="demo" class="submit-investment-other" value=0>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-container">
+                        <h2>Crypto:</h2>
+
+                        <div class="form-group">
+                            Bitcoin:
+                            <span class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                            </span>
+                            <span class="bitcoin-CAD">
+                                BTC in CAD:
+                                <input type="number" disabled>
+                            </span>
+                            <span class="number-input">
+                                <span class="dollar-symbol">$</span>
+                                <input type="number"  id="demo" class="submit-bitcoin"  value=0>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            Ethereum:
+                            <span class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                <span class="ethereum-CAD">
+                                    ETH in CAD:
+                                    <input type="number" disabled>
+                                </span>
+                                <span class="number-input">
+                                    <span class="dollar-symbol">$</span>
+                                    <input type="number" id="demo" class="submit-ethereum" value=0>
+                                </span>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            Other Crypto: 
+
+                            <span class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                <span class="number-input">
+                                    <span class="dollar-symbol">$</span>
+                                    <input type="number" id="demo" class="submit-crypto-other" value=0>
+                                </span>
+                            </span>
+
+                        </div>
+
+                    </div>
+                        
+                    
+                    <div class="form-container">
+                            <h2>Cash:</h2>
+
+                            <div class="form-group">
+                                Hard Cash:
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-hard-cash" value=0>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                Checkings Account:
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-checking" value=0>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                Savings Account: 
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-savings" value=0>
+                                    </span>
+                                </span>
+
+                            </div>
+                            <div class="form-group">
+                                Other Accounts: 
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-cash-other" value=0>
+                                    </span>
+                                </span>
+                            </div>
+                    </div>
+
+
+
+
+                    <div class="form-container">
+                            <h2>Property and other assets:</h2>
+
+                            <div class="form-group">
+                                Principal Residence:
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-principal-residence" value=0>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                Vehicle(s):
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-auto" value=0>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                Other Properties:
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-properties-other" value=0>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                Other Valuables:
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-valuables" value=0>
+                                    </span>
+                                </span>
+                                
+                            </div>
+                    </div>
+                        
+                    
+                    <div class="form-container">
+                            <h2>Liabilities:</h2>
+
+                            <div class="form-group">
+                                Mortgages:
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-mortgages" value=0>
+                                    </span>
+                                </span>
+
+                            </div>
+                            <div class="form-group">
+                                Consumer Debt:
+
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-consumer-debt" value=0>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                Loans: 
+                                
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-loans" value=0>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                Other debt:
+                                
+                                <span class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+
+                                    <span class="number-input">
+                                        <span class="dollar-symbol">$</span>
+                                        <input type="number" id="demo" class="submit-debt-other" value=0>
+                                    </span>
+                                </span>
+                            </div>
+                    </div>
+
+                            <input type="submit" class="btn btn-primary"/> 
+                                    
+                </form>
+
+            </div>
+
+            <div class="entries-view">
+
+                <div class="entries">
+
+                    <div>
+                        <h1>All Entries</h1>
+                    </div>
+
+                    <table class="all-entries-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="4">Investable Assets</th>
+                                <th colspan="3">Crypto</th>
+                                <th colspan="4">Cash</th>
+                                <th colspan="4">Personal Assets</th>
+                                <th colspan="4">Liabilities</th>
+                                <th colspan="3">Networth</th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>Taxable ($)</th>
+                                <th>TFSA ($)</th>
+                                <th>RRSP ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Bitcoin ($)</th>
+                                <th>Ethereum ($)</th>
+                                <th>Other ($)</th>
+                          
+
+
+                                <th>Cash ($)</th>
+                                <th>Checking ($)</th>
+                                <th>Savings ($)</th>
+                                <th>Other Accounts ($)</th>
+
+                                <th>Principal Residence ($)</th>
+                                <th>Auto ($)</th>
+                                <th>Other Properties ($)</th>
+                                <th>Physical Goods ($)</th>
+
+                                <th>Mortgages ($)</th>
+                                <th>Credit Card Debt ($)</th>
+                                <th>Loans ($)</th>
+                                <th>Other ($)</th>
+
+                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Change Since Last ($)</th>
+                                <th>% Change Since Last </th>
+                                
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            
+        </main>
+
+{% endblock %}
+

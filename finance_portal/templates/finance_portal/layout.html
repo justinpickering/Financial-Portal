@@ -33,31 +33,36 @@
             </div>
 
             <div class="sidebar">
-                <a href="{% url 'dashboard' %}" class="active">
+                <a class="active dashboard">
                     <span class="material-icons-sharp">dashboard</span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <a class="investable-assets">
                     <span class="material-icons-sharp">request_quote</span>
                     <h3>Investable Assets</h3>
                 </a>
-                <a href="#">
-                    <span class="material-icons-sharp">account_balance</span>
-                    <h3>Personal Assets</h3>
+                <a class="crypto">
+                    <span class="material-icons-sharp">currency_bitcoin</span>
+                    <h3>Cryptocurrency</h3>
                 </a>
-                <a href="#">
+                <a class="cash">
                     <span class="material-icons-sharp">attach_money</span>
                     <h3>Cash</h3>
                 </a>
-                <a href="# ">
+                <a class="personal-assets">
+                    <span class="material-icons-sharp">account_balance</span>
+                    <h3>Personal Assets</h3>
+                </a>
+
+                <a class="liabilities">
                     <span class="material-icons-sharp">handshake</span>
                     <h3>Liabilities</h3>
                 </a>
-                <a href="#" class="add">
+                <a class="add">
                     <span class="material-icons-sharp">add</span>
                     <h3>Add Entry</h3>
                 </a>
-                <a href="# ">
+                <a class="all-entries">
                     <span class="material-icons-sharp">history</span>
                     <h3>All Entries</h3>
                 </a>
@@ -77,7 +82,10 @@
       
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script src="{% static 'finance_portal/mychart.js' %}"></script>
-    
+     
+      <script src="{% static 'finance_portal/js.js' %}"></script>
+
+      
 
   </body>
 
