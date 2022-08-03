@@ -188,7 +188,7 @@ function investable_assets() {
 
                  // if there are more than 10 entries (the reason for this, is due to the 1st entry at the bottom of the table, 
                  // its "Change since Last", needs to calculate based on previous value which is out of the table) Here we use all_entries NOT entries
-                 else {
+                else {
 
                     if (id == 0) {
 
@@ -284,9 +284,239 @@ function crypto() {
     document.querySelector(".investable-view").style.display = "none";
     document.querySelector(".cash-view").style.display = "none";
     document.querySelector(".personal-assets-view").style.display = "none";
-    document.querySelector(".liability-view").style.display = "none";    
-}
+    document.querySelector(".liability-view").style.display = "none";
+    
+    // API Call to get entry data for the logged in user
+    fetch('/dashboard') 
+    .then(response => response.json())
+    .then(entries => {
+        
+        //sorts entries by date (chronological) - this is incase a user changes a date of an entry to be earlier/later...
+        entries.sort(function(entries,b) {
+            return new Date(entries.date) - new Date(b.date)
+        })
 
+        //used for calculation that need ALL entry sets. Entries below is cut into a set of 10 for table.
+        let all_entries = entries;
+
+        //get most recent entry
+        var newest_entry = (entries[entries.length-1]);
+        
+        //sum each category for charts
+        var total_crypto = +newest_entry.bitcoin + +newest_entry.ethereum + +newest_entry.other_crypto;
+        var bitcoin = newest_entry.bitcoin;
+        var ethereum = newest_entry.ethereum;
+        var other_crypto = newest_entry.other_crypto;
+
+
+        // Print out total networth on dashboard
+
+        document.querySelector("#bitcoin_dashboard").innerHTML = `$ ${bitcoin}`;
+        document.querySelector("#ethereum_dashboard").innerHTML = `$ ${ethereum}`;
+        document.querySelector("#other_crypto_dashboard").innerHTML = `$ ${other_crypto}`;
+        document.querySelector("#total_crypto_dashboard").innerHTML = `$ ${total_crypto.toFixed(2)}`;
+        
+
+        pie_chart_crypto(bitcoin, ethereum, other_crypto);
+
+
+        //default start/end dates based on entries
+        document.querySelector('#startdate').value = entries[0].date
+        document.querySelector('#enddate').value = entries[entries.length-1].date
+
+        const bitcoin_array = []
+        const ethereum_array = []
+        const other_crypto_array = []
+        const dates_array = []
+
+        for (let i=0; i < entries.length; i++) {
+
+            bitcoin_array.push(entries[i].bitcoin);
+            ethereum_array.push(entries[i].ethereum);
+            other_crypto_array.push(entries[i].other_crypto);
+            dates_array.push(entries[i].date);
+        }
+
+        line_chart_crypto(bitcoin_array, dates_array, ethereum_array, other_crypto_array);
+
+        const max_length = 10;
+
+        //adds button to see all entries if needed
+        if (entries.length > max_length) {
+
+            const button = document.createElement('button');
+            button.innerHTML = "View all entries";
+            
+            document.querySelector('.investable-data-button').append(button);
+            button.onclick = all_entries;
+
+        };
+
+        entries = entries.reverse()
+        entries = entries.slice(0, max_length)
+        entries = entries.reverse()
+
+
+        //for Table
+        for (let i=0; i < entries.length; i++) {
+
+            //put each entry in both entry table
+            entries.forEach((entry, id) => {
+
+        
+
+                var table = document.querySelector(".crypto-table");
+
+                var rows = table.rows.length
+
+                //Stops from adding more rows if the user presses on 'dashboard' button again, while in dashboard
+                if (rows >= entries.length + 2) {
+                    return;
+                }
+                
+                var row = table.insertRow(2);
+                
+                var date = row.insertCell(0);
+                var bitcoin = row.insertCell(1);
+                var ethereum = row.insertCell(2);
+                var other_crypto = row.insertCell(3);
+
+                var cell_networth = row.insertCell(4);
+                var total_change = row.insertCell(5);
+                var percent_change = row.insertCell(6);
+
+
+                date.innerHTML = entry.date;
+
+                bitcoin.innerHTML = numberWithCommas(entry.bitcoin);
+                ethereum.innerHTML = numberWithCommas(entry.ethereum);
+                other_crypto.innerHTML = numberWithCommas(entry.other_crypto);
+
+                cell_networth.innerHTML = numberWithCommas(entry.total_crypto);
+
+                // if there are 10 or less entries total
+                if (all_entries.length <= max_length) {
+                            
+
+                    // if last element (if dont assign 0, it will not work)
+                    if (id == 0) {
+                        percent_change.innerHTML = 0;
+                        total_change.innerHTML = 0;
+                        total_change_calc = 0;
+                    }
+                    // if not last entry
+                    else {
+                
+                        if (isNaN((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto) || !isFinite((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto).toFixed(2) * 100}%`;
+                
+                
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_crypto - entries[id-1].total_crypto) > 0) {
+                        total_change_calc = (entries[id].total_crypto - entries[id-1].total_crypto)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_crypto - entries[id-1].total_crypto)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                }
+                
+                    // if there are more than 10 entries (the reason for this, is due to the 1st entry at the bottom of the table, 
+                    // its "Change since Last", needs to calculate based on previous value which is out of the table) Here we use all_entries NOT entries
+                else {
+                
+                    if (id == 0) {
+                
+                        if (isNaN((all_entries[9].total_crypto - all_entries[10].total_crypto) / all_entries[10].total_crypto) || !isFinite((all_entries[9].total_crypto - all_entries[10].total_crypto) / all_entries[10].total_crypto) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((all_entries[9].total_crypto - all_entries[10].total_crypto) / all_entries[10].total_crypto).toFixed(2) * 100}%`;
+                        }
+                
+                        if ((all_entries[9].total_crypto - all_entries[10].total_crypto) > 0) {
+                            total_change_calc = (all_entries[9].total_crypto - all_entries[10].total_crypto)
+                            total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                            }
+                
+                        else {
+                            total_change_calc = (all_entries[9].total_crypto - all_entries[10].total_crypto)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                
+                    }
+                
+                    else {
+                
+                        
+                        console.log("hey")
+                        if (isNaN((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto) || !isFinite((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto).toFixed(2) * 100}%`;
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_crypto - entries[id-1].total_crypto) > 0) {
+                        total_change_calc = (entries[id].total_crypto - entries[id-1].total_crypto)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_crypto - entries[id-1].total_crypto)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                    
+                }
+
+
+                // changes the colour of the border depending on value
+                if (percent_change.innerHTML[0] == '-') {
+                    percent_change.style.backgroundColor = "#ff7782";
+                    total_change.style.backgroundColor = "#ff7782"
+                }
+                else if (total_change.innerHTML[0] == '0' ) {
+                    
+                }
+                else {
+                    percent_change.style.backgroundColor = "#41f1b6";
+                    total_change.style.backgroundColor = "#41f1b6";
+                }
+
+
+
+            });
+
+            
+        }
+
+            // Infographic print out
+            // Average Period Increase
+
+            average_period_increase = (all_entries[0].total_crypto / all_entries.length).toFixed(2)
+            average_period_increase = numberWithCommas(average_period_increase)
+            document.querySelector("#average_period_crypto").innerHTML = `$ ${average_period_increase}`;
+    
+            // Amount Change Dashboard
+            var yes = (all_entries[0].total_crypto - all_entries[all_entries.length - 1].total_crypto).toFixed(2);
+            document.querySelector("#amount_change_crypto").innerHTML = `$ ${yes}`
+
+
+        })  
+
+}
 
 function cash() {
 

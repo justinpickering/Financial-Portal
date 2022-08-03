@@ -199,3 +199,105 @@ function pie_chart_investable(taxable, tfsa, rrsp, other_investable) {
     });
 }
 
+function line_chart_crypto(bitcoin, dates, ethereum, other_crypto) {   
+    const ctx = document.getElementById('myChart_crypto')
+     const myChart5 = new Chart(ctx, {
+         
+         type: 'line',
+         data: {
+             labels: dates,
+             datasets: [{
+                 label: 'Bitcoin',
+                 data: bitcoin,
+                 pointBackgroundColor:'rgba(1, 1, 1, 1)',
+                 borderWidth: 1,
+                 borderColor: 'rgba(1, 1, 1, 1)'
+             },
+
+             {
+                label: 'Ethereum',
+                data: ethereum,
+                pointBackgroundColor:'rgba(1, 1, 1, 1)',
+                borderWidth: 1,
+                borderColor: 'rgba(1, 1, 1, 1)'
+            },
+
+            {
+                label: 'Other',
+                data: other_crypto,
+                pointBackgroundColor:'rgba(1, 1, 1, 1)',
+                borderWidth: 1,
+                borderColor: 'rgba(1, 1, 1, 1)'
+            }]
+         },
+         options: {
+             
+             scales: {
+                 y: {
+                     title: {
+                         display: true,
+                         text: 'Dollars ($)'
+                     },
+                     beginAtZero: true,
+                     ticks: {
+                         // Include a dollar sign in the ticks
+                         callback: function(value, index, ticks) {
+                             return '$' + value;
+                         }
+                     },
+ 
+                 },
+                 x: {
+                     title: {
+                         display: true,
+                         text: 'Date'
+                     }
+                 }
+ 
+ 
+             },
+ 
+             plugins: {
+                 legend: {
+                     display: false
+                 }
+             }
+         }
+     });
+ }
+
+function pie_chart_crypto(bitcoin, ethereum, other_crypto) {
+
+    const ctx_3 = document.getElementById('pie_crypto')
+    const myChart6 = new Chart(ctx_3, {
+        
+        type: 'pie',
+        data: {
+            labels: ['Bitcoin', 'Ethereum', 'Other Crypto'],
+            datasets: [{
+                label: 'Cryptocurrency $',
+                data: [bitcoin, ethereum, other_crypto],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+
+                pointBackgroundColor:'rgba(1, 1, 1, 1)',
+                borderWidth: 5,
+                
+            }]
+        },
+        options: {
+            
+            plugins: {
+                legend: {
+                    display: true
+                },
+            },
+            "responsive": true,
+            "maintainAspectRatio": false
+        }
+    });
+}
+
