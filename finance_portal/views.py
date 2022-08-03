@@ -1,3 +1,4 @@
+from functools import total_ordering
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
@@ -25,11 +26,6 @@ def dashboard(request):
 
     entries = Networth.objects.filter(user=request.user)
 
-    entries_paginator = Paginator(entries, 10)
-
-    page_number = request.GET.get('page')
-    page_obj = entries_paginator.get_page(page_number)
-    print(entries_paginator.count)
 
     return JsonResponse([entry.serialize() for entry in entries], safe=False)
 
@@ -71,10 +67,17 @@ def submit(request):
         other_debt = data.get("other_debt", "")
 
         assets = int(taxable)+int(tfsa)+int(rrsp)+int(other_investable)+int(bitcoin)+int(ethereum)+int(other_crypto)+int(hard_cash)+int(checkings)+int(savings)+int(other_cash)+int(principal_residence)+int(auto) + int(other_properties) + int(goods)
-        liabilities = int(mortgages) + int(consumer_debt) + int(loans) + int(other_debt)
+        total_liability = int(mortgages) + int(consumer_debt) + int(loans) + int(other_debt)
+
+        total_investable = int(taxable)+int(tfsa)+int(rrsp)+int(other_investable)
+        total_crypto = int(bitcoin)+int(ethereum)+int(other_crypto)
+        total_cash = int(hard_cash)+int(checkings)+int(savings)+int(other_cash)
+        total_personal = int(principal_residence)+int(auto) + int(other_properties) + int(goods)
+
+        print("total_crypto", total_crypto)
 
         #calculate networth for the entry
-        networth = (assets - liabilities)
+        networth = (assets - total_liability)
 
 
         #enter data into database as an entry
@@ -105,8 +108,11 @@ def submit(request):
             loans=loans,
             other_debt=other_debt,
 
-            total_networth=networth
-            
+            total_networth=networth,
+            total_investable=total_investable,
+            total_crypto=total_crypto,
+            total_cash=total_cash,
+            total_personal=total_personal
         )
         entry.save()
 

@@ -14,7 +14,7 @@ class User(AbstractUser):
 class Networth(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    date.editable = True
+    #date.editable = True
 
     taxable = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     tfsa = models.DecimalField(max_digits=15, decimal_places=2, default=0)
@@ -42,6 +42,11 @@ class Networth(models.Model):
     other_debt = models.DecimalField(max_digits=15, decimal_places=2, default=0)
 
     total_networth = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    total_investable = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    total_crypto = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    total_cash = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    total_personal = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    total_liability = models.DecimalField(max_digits=15, decimal_places=2, default=0)
 
 #.strftime("%d %B, %Y")
     def serialize(self):
@@ -71,5 +76,10 @@ class Networth(models.Model):
             "loans":self.loans,
             "other_debt":self.other_debt,
 
-            "total_networth": self.total_networth
+            "total_networth": self.total_networth,
+            "total_investable": self.total_investable,
+            "total_crypto": self.total_crypto,
+            "total_cash": self.total_cash,
+            "total_personal": self.total_personal,
+            "total_liability": self.total_liability
         }

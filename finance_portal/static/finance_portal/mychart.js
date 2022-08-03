@@ -52,6 +52,42 @@ function line_chart(networth, dates) {
     });
 }
 
+function donut_chart(total_investable, total_crypto, total_cash, total_personal_assets) {
+
+    const ctx_2 = document.getElementById('myChart_2')
+    const myChart3 = new Chart(ctx_2, {
+        
+        type: 'pie',
+        data: {
+            labels: ['Investable Assets', 'Crypto', 'Cash', 'Personal Assets'],
+            datasets: [{
+                label: 'Net Worth $',
+                data: [total_investable, total_crypto, total_cash, total_personal_assets],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+
+                pointBackgroundColor:'rgba(1, 1, 1, 1)',
+                borderWidth: 5,
+                
+            }]
+        },
+        options: {
+            
+            plugins: {
+                legend: {
+                    display: true
+                },
+            },
+            "responsive": true,
+            "maintainAspectRatio": false
+        }
+    });
+}
+
 function line_chart_investable(taxable, dates, tfsa, rrsp, other_investable) {   
     const ctx = document.getElementById('myChart_investable')
      const myChart2 = new Chart(ctx, {
@@ -126,42 +162,6 @@ function line_chart_investable(taxable, dates, tfsa, rrsp, other_investable) {
          }
      });
  }
-
-function donut_chart(total_investable, total_crypto, total_cash, total_personal_assets) {
-
-    const ctx_2 = document.getElementById('myChart_2')
-    const myChart3 = new Chart(ctx_2, {
-        
-        type: 'pie',
-        data: {
-            labels: ['Investable Assets', 'Crypto', 'Cash', 'Personal Assets'],
-            datasets: [{
-                label: 'Net Worth $',
-                data: [total_investable, total_crypto, total_cash, total_personal_assets],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                ],
-
-                pointBackgroundColor:'rgba(1, 1, 1, 1)',
-                borderWidth: 5,
-                
-            }]
-        },
-        options: {
-            
-            plugins: {
-                legend: {
-                    display: true
-                },
-            },
-            "responsive": true,
-            "maintainAspectRatio": false
-        }
-    });
-}
 
 function pie_chart_investable(taxable, tfsa, rrsp, other_investable) {
 

@@ -10,6 +10,5 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("submit", views.submit, name="submit"),
     
-    path("dashboard", views.dashboard, name="dashboard"),
     path("dashboard", views.dashboard, name="dashboard")
 ]
