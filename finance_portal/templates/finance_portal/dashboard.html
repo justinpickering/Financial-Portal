@@ -8,7 +8,10 @@
 
             <div class="dashboard-view">
 
-                <h1>Dashboard</h1>
+                <div class="title">
+                    <h1>Dashboard</h1>
+                </div>
+     
 
                 <div class="insights">
 
@@ -61,7 +64,7 @@
                     <div class="dashboard-pie">
        
                             <div class="dashboard-title">
-                                <h2>Asset Breakdown</h2>
+                                <h2>Total Asset Breakdown</h2>
                             </div>
 
                             <div>
@@ -78,7 +81,7 @@
                             </div>
 
                             <div>
-                                <h3>Average Period Increase</h3>
+                                <h3>Average Period Growth</h3>
                                 <h1 id="average_period_dashboard"></h1>
                             </div>
 
@@ -95,6 +98,7 @@
                 </div>
 
                 <div class="myChart">
+                    <h2>Networth</h2>
                     <canvas id="myChart" height="100" width="300"></canvas>
                     From:
                     <input type="date" id="startdate">
@@ -162,7 +166,10 @@
 
             <div class="investable-view">
 
-                <h1>Investable Assets</h1>
+                <div class="title">
+                    <h1>Investable Assets</h1>
+                </div>
+                
 
                 <div class="insights">
 
@@ -210,7 +217,7 @@
                     <div class="dashboard-pie">
        
                             <div class="dashboard-title">
-                                <h2>Asset Breakdown</h2>
+                                <h2>Investable Assets Breakdown</h2>
                             </div>
 
                             <div>
@@ -227,7 +234,7 @@
                             </div>
 
                             <div>
-                                <h3>Average Period Increase</h3>
+                                <h3>Average Period Growth</h3>
                                 <h1 id="average_period_investable"></h1>
                             </div>
 
@@ -244,6 +251,7 @@
                 </div>
 
                 <div class="myChart">
+                    <h2>Investable Assets</h2>
                     <canvas id="myChart_investable" height="100" width="300"></canvas>
                     From:
                     <input type="date" id="startdate">
@@ -289,7 +297,9 @@
 
             <div class="crypto-view">
 
-                <h1>Cryptocurrency</h1>
+                <div class="title">
+                    <h1>Cryptocurrency</h1>
+                </div>
 
                 <div class="insights">
 
@@ -332,7 +342,7 @@
                     <div class="dashboard-pie">
        
                             <div class="dashboard-title">
-                                <h2>Asset Breakdown</h2>
+                                <h2>Crypto Assets Breakdown</h2>
                             </div>
 
                             <div>
@@ -349,7 +359,7 @@
                             </div>
 
                             <div>
-                                <h3>Average Period Increase</h3>
+                                <h3>Average Period Growth</h3>
                                 <h1 id="average_period_crypto"></h1>
                             </div>
 
@@ -368,6 +378,7 @@
 
 
                 <div class="myChart">
+                    <h2>Cryptocurrency</h2>
                     <canvas id="myChart_crypto" height="100" width="300"></canvas>
                     From:
                     <input type="date" id="startdate">
@@ -378,7 +389,7 @@
 
 
 
-                <div class="entries">
+                <div class="entries crypto-data-button">
                     <h2>Entries</h2>
 
                     <table class="crypto-table">
@@ -414,7 +425,10 @@
 
             <div class="cash-view">
 
-                <h1>Cash</h1>
+                <div class="title">
+                    <h1>Cash</h1>
+                </div>
+                
 
                 <div class="insights">
 
@@ -427,7 +441,7 @@
                             <hr>
                             <div >
                                 <h3>Hard Cash</h3>
-                                <h1 id="cash_dashboard"></h1>
+                                <h1 id="hard_cash_dashboard"></h1>
                             </div>
 
                             <div>
@@ -463,11 +477,11 @@
                     <div class="dashboard-pie">
        
                             <div class="dashboard-title">
-                                <h2>Asset Breakdown</h2>
+                                <h2>Cash Breakdown</h2>
                             </div>
 
                             <div>
-                                <canvas id="myChart_2" height="600" ></canvas>
+                                <canvas id="pie_cash" height="600" ></canvas>
                             </div>
                             
                         <small class="text-muted">From Beginning</small>
@@ -480,13 +494,13 @@
                             </div>
 
                             <div>
-                                <h3>Average Period Increase</h3>
-                                <h1 id="average_period_dashboard"></h1>
+                                <h3>Average Period Growth</h3>
+                                <h1 id="average_period_cash"></h1>
                             </div>
 
                             <div>
                                 <h3>Amount Change Since Beginning</h3>
-                                <h1 id="amount_change_dashboard"></h1>
+                                <h1 id="amount_change_cash"></h1>
                             </div>
 
 
@@ -499,7 +513,8 @@
 
 
                 <div class="myChart">
-                    <canvas id="myChart" height="100" width="300"></canvas>
+                    <h2>Cash</h2>
+                    <canvas id="myChart_cash" height="100" width="300"></canvas>
                     From:
                     <input type="date" id="startdate">
                     To:
@@ -509,49 +524,27 @@
 
 
 
-                <div class="entries">
+                <div class="entries cash-data-button">
                     <h2>Entries</h2>
 
-                    <table class="dashboard-table">
+                    <table class="cash-table">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th colspan="4">Investable Assets</th>
-                                <th colspan="3">Crypto</th>
+
                                 <th colspan="4">Cash</th>
-                                <th colspan="4">Personal Assets</th>
-                                <th colspan="4">Liabilities</th>
-                                <th colspan="3">Networth</th>
+
+                                <th colspan="3">Total</th>
                             </tr>
                             <tr>
                                 <th>Date</th>
-                                <th>Taxable ($)</th>
-                                <th>TFSA ($)</th>
-                                <th>RRSP ($)</th>
-                                <th>Other ($)</th>
-
-                                <th>Bitcoin ($)</th>
-                                <th>Ethereum ($)</th>
-                                <th>Other ($)</th>
-                          
-
 
                                 <th>Cash ($)</th>
                                 <th>Checking ($)</th>
                                 <th>Savings ($)</th>
                                 <th>Other Accounts ($)</th>
 
-                                <th>Principal Residence ($)</th>
-                                <th>Auto ($)</th>
-                                <th>Other Properties ($)</th>
-                                <th>Physical Goods ($)</th>
-
-                                <th>Mortgages ($)</th>
-                                <th>Credit Card Debt ($)</th>
-                                <th>Loans ($)</th>
-                                <th>Other ($)</th>
-
-                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Total Cash ($)</th>
                                 <th>Change Since Last ($)</th>
                                 <th>% Change Since Last </th>
                                 
@@ -568,7 +561,9 @@
 
             <div class="personal-assets-view">
 
-                <h1>Personal Assets</h1>
+                <div class="title">
+                    <h1>Personal Assets</h1>
+                </div>
 
                 <div class="insights">
 
@@ -616,11 +611,11 @@
                     <div class="dashboard-pie">
        
                             <div class="dashboard-title">
-                                <h2>Asset Breakdown</h2>
+                                <h2>Personal Assets Breakdown</h2>
                             </div>
 
                             <div>
-                                <canvas id="myChart_2" height="600" ></canvas>
+                                <canvas id="pie_personal" height="600" ></canvas>
                             </div>
                             
                         <small class="text-muted">From Beginning</small>
@@ -633,16 +628,14 @@
                             </div>
 
                             <div>
-                                <h3>Average Period Increase</h3>
-                                <h1 id="average_period_dashboard"></h1>
+                                <h3>Average Period Growth</h3>
+                                <h1 id="average_period_personal"></h1>
                             </div>
 
                             <div>
                                 <h3>Amount Change Since Beginning</h3>
-                                <h1 id="amount_change_dashboard"></h1>
+                                <h1 id="amount_change_personal"></h1>
                             </div>
-
-
 
                     </div>
                     
@@ -650,9 +643,9 @@
                 </div>
 
 
-
                 <div class="myChart">
-                    <canvas id="myChart" height="100" width="300"></canvas>
+                    <h2>Personal Assets</h2>
+                    <canvas id="myChart_personal" height="100" width="300"></canvas>
                     From:
                     <input type="date" id="startdate">
                     To:
@@ -662,49 +655,28 @@
 
 
 
-                <div class="entries">
+                <div class="entries personal-data-button">
                     <h2>Entries</h2>
 
-                    <table class="dashboard-table">
+                    <table class="personal-table">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th colspan="4">Investable Assets</th>
-                                <th colspan="3">Crypto</th>
-                                <th colspan="4">Cash</th>
+
                                 <th colspan="4">Personal Assets</th>
-                                <th colspan="4">Liabilities</th>
-                                <th colspan="3">Networth</th>
+
+                                <th colspan="3">Total</th>
                             </tr>
                             <tr>
                                 <th>Date</th>
-                                <th>Taxable ($)</th>
-                                <th>TFSA ($)</th>
-                                <th>RRSP ($)</th>
-                                <th>Other ($)</th>
-
-                                <th>Bitcoin ($)</th>
-                                <th>Ethereum ($)</th>
-                                <th>Other ($)</th>
-                          
-
-
-                                <th>Cash ($)</th>
-                                <th>Checking ($)</th>
-                                <th>Savings ($)</th>
-                                <th>Other Accounts ($)</th>
 
                                 <th>Principal Residence ($)</th>
                                 <th>Auto ($)</th>
                                 <th>Other Properties ($)</th>
                                 <th>Physical Goods ($)</th>
 
-                                <th>Mortgages ($)</th>
-                                <th>Credit Card Debt ($)</th>
-                                <th>Loans ($)</th>
-                                <th>Other ($)</th>
 
-                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Total Personal Assets ($)</th>
                                 <th>Change Since Last ($)</th>
                                 <th>% Change Since Last </th>
                                 
@@ -721,7 +693,9 @@
 
             <div class="liability-view">
 
-                <h1>Liabilities</h1>
+                <div class="title">
+                    <h1>Liabilities</h1>
+                </div>
 
                 <div class="insights">
 
@@ -755,8 +729,8 @@
                             <hr>
                                                     
                             <div class="dashboard-total-last">
-                                <h2>Total Debt</h2>
-                                <h1 id="total_debt_dashboard"></h1>
+                                <h2>Total Liabilities</h2>
+                                <h1 id="total_liability_dashboard"></h1>
                             </div>
 
 
@@ -769,11 +743,11 @@
                     <div class="dashboard-pie">
        
                             <div class="dashboard-title">
-                                <h2>Asset Breakdown</h2>
+                                <h2>Liabilities Breakdown</h2>
                             </div>
 
                             <div>
-                                <canvas id="myChart_2" height="600" ></canvas>
+                                <canvas id="pie_liability" height="600" ></canvas>
                             </div>
                             
                         <small class="text-muted">From Beginning</small>
@@ -786,26 +760,23 @@
                             </div>
 
                             <div>
-                                <h3>Average Period Increase</h3>
-                                <h1 id="average_period_dashboard"></h1>
+                                <h3>Average Period Growth</h3>
+                                <h1 id="average_period_liability"></h1>
                             </div>
 
                             <div>
                                 <h3>Amount Change Since Beginning</h3>
-                                <h1 id="amount_change_dashboard"></h1>
+                                <h1 id="amount_change_liability"></h1>
                             </div>
 
-
-
                     </div>
-                    
                     
                 </div>
 
 
-
                 <div class="myChart">
-                    <canvas id="myChart" height="100" width="300"></canvas>
+                    <h2>Liabilities</h2>
+                    <canvas id="myChart_liability" height="100" width="300"></canvas>
                     From:
                     <input type="date" id="startdate">
                     To:
@@ -814,50 +785,26 @@
                 
 
 
-
-                <div class="entries">
+                <div class="entries liability-data-button">
                     <h2>Entries</h2>
 
-                    <table class="dashboard-table">
+                    <table class="liability-table">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th colspan="4">Investable Assets</th>
-                                <th colspan="3">Crypto</th>
-                                <th colspan="4">Cash</th>
-                                <th colspan="4">Personal Assets</th>
+
                                 <th colspan="4">Liabilities</th>
-                                <th colspan="3">Networth</th>
+                                <th colspan="3">Total</th>
                             </tr>
                             <tr>
                                 <th>Date</th>
-                                <th>Taxable ($)</th>
-                                <th>TFSA ($)</th>
-                                <th>RRSP ($)</th>
-                                <th>Other ($)</th>
-
-                                <th>Bitcoin ($)</th>
-                                <th>Ethereum ($)</th>
-                                <th>Other ($)</th>
-                          
-
-
-                                <th>Cash ($)</th>
-                                <th>Checking ($)</th>
-                                <th>Savings ($)</th>
-                                <th>Other Accounts ($)</th>
-
-                                <th>Principal Residence ($)</th>
-                                <th>Auto ($)</th>
-                                <th>Other Properties ($)</th>
-                                <th>Physical Goods ($)</th>
 
                                 <th>Mortgages ($)</th>
                                 <th>Credit Card Debt ($)</th>
                                 <th>Loans ($)</th>
                                 <th>Other ($)</th>
 
-                                <th>Total (Assets-Liabilities) ($)</th>
+                                <th>Total Liabilities ($)</th>
                                 <th>Change Since Last ($)</th>
                                 <th>% Change Since Last </th>
                                 
@@ -875,7 +822,9 @@
 
             <div class="entry-view">
 
-                <h1>Net Worth Entry</h1> <br>
+                <div class="title"> 
+                    <h1>Net Worth Entry</h1>
+                </div>
 
                 <form id="compose-form" class="form">
 
@@ -1164,11 +1113,14 @@
 
             <div class="entries-view">
 
+                                    
+                <div class="title">
+                    <h1>All Entries</h1>
+                </div>
+
                 <div class="entries">
 
-                    <div>
-                        <h1>All Entries</h1>
-                    </div>
+
 
                     <table class="all-entries-table">
                         <thead>

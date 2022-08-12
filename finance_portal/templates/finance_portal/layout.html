@@ -19,18 +19,28 @@
   </head>
 
   <body>
+
+            
+    <button class="menu" id="menu-btn">
+        <span class="material-icons-sharp">menu</span>
+    </button> 
       
     <div class="container">
         <aside>
             <div class="top">
                 <div class="logo">
-                    <span class="material-icons-sharp">account_balance_wallet</span>
-                    <h2>Finance Portal</h2>
+                    <a href="{% url 'index' %}" class="material-icons-sharp">account_balance_wallet</a>
+                    <a href="{% url 'index' %}">
+                        <h1>Finance Portal</h1>
+                    </a>
                 </div>
+
                 <div class="close" id="close-btn">
                     <span class="material-icons-sharp">close</span>
                 </div>
             </div>
+
+            
 
             <div class="sidebar">
                 <a class="active dashboard">
@@ -82,8 +92,12 @@
       
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script src="{% static 'finance_portal/mychart.js' %}"></script>
+      <script src="{% static 'finance_portal/mobile.js' %}"></script>
+     
      
       <script src="{% static 'finance_portal/js.js' %}"></script>
+
+
 
       
 

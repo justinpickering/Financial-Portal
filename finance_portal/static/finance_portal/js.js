@@ -16,6 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+
+
+
+
+const sidebar = document.querySelector('.sidebar');
+
+const children = sidebar.querySelectorAll(':scope > div');
+
+children.addEventListener("click", functionss);
+
+function functionss() {
+    console.log("yes");
+};
+
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -96,11 +110,8 @@ function investable_assets() {
         //adds button to see all entries if needed
         if (entries.length > max_length) {
 
-            const button_2 = document.createElement('button');
-            button_2.innerHTML = "View all entries";
-            
-            document.querySelector('.investable-data-button').append(button_2);
-            button_2.onclick = all_entries;
+            e="investable"
+            addButton(e)
 
         };
 
@@ -214,7 +225,6 @@ function investable_assets() {
                     else {
 
                         
-                        console.log("hey")
                         if (isNaN((entries[id].total_investable - entries[id-1].total_investable) / entries[id-1].total_investable) || !isFinite((entries[id].total_investable - entries[id-1].total_investable) / entries[id-1].total_investable) ){
                             percent_change.innerHTML = "n/a"
                         }
@@ -239,7 +249,7 @@ function investable_assets() {
 
 
                 // changes the colour of the border depending on value
-                if (percent_change.innerHTML[0] == '-') {
+                if (total_change.innerHTML[0]  == '-') {
                     percent_change.style.backgroundColor = "#ff7782";
                     total_change.style.backgroundColor = "#ff7782"
                 }
@@ -273,7 +283,6 @@ function investable_assets() {
         })  
 
 }
-
 
 function crypto() {
 
@@ -344,12 +353,8 @@ function crypto() {
         //adds button to see all entries if needed
         if (entries.length > max_length) {
 
-            const button = document.createElement('button');
-            button.innerHTML = "View all entries";
-            
-            document.querySelector('.investable-data-button').append(button);
-            button.onclick = all_entries;
-
+            e="crypto"
+            addButton(e)
         };
 
         entries = entries.reverse()
@@ -457,8 +462,7 @@ function crypto() {
                 
                     else {
                 
-                        
-                        console.log("hey")
+
                         if (isNaN((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto) || !isFinite((entries[id].total_crypto - entries[id-1].total_crypto) / entries[id-1].total_crypto) ){
                             percent_change.innerHTML = "n/a"
                         }
@@ -483,7 +487,7 @@ function crypto() {
 
 
                 // changes the colour of the border depending on value
-                if (percent_change.innerHTML[0] == '-') {
+                if (total_change.innerHTML[0]  == '-') {
                     percent_change.style.backgroundColor = "#ff7782";
                     total_change.style.backgroundColor = "#ff7782"
                 }
@@ -527,7 +531,238 @@ function cash() {
     document.querySelector(".dashboard-view").style.display = "none";
     document.querySelector(".investable-view").style.display = "none";
     document.querySelector(".personal-assets-view").style.display = "none";
-    document.querySelector(".liability-view").style.display = "none";     
+    document.querySelector(".liability-view").style.display = "none";
+    
+    // API Call to get entry data for the logged in user
+    fetch('/dashboard') 
+    .then(response => response.json())
+    .then(entries => {
+        
+        //sorts entries by date (chronological) - this is incase a user changes a date of an entry to be earlier/later...
+        entries.sort(function(entries,b) {
+            return new Date(entries.date) - new Date(b.date)
+        })
+
+        //used for calculation that need ALL entry sets. Entries below is cut into a set of 10 for table.
+        let all_entries = entries;
+
+        //get most recent entry
+        var newest_entry = (entries[entries.length-1]);
+        
+        //sum each category for charts
+        var total_cash = +newest_entry.hard_cash + +newest_entry.checkings + +newest_entry.savings + +newest_entry.other_cash;
+        var hard_cash = newest_entry.hard_cash;
+        var checkings = newest_entry.checkings;
+        var savings = newest_entry.savings;
+        var other_cash = newest_entry.other_cash;
+
+
+        // Print out total networth on dashboard
+
+        document.querySelector("#hard_cash_dashboard").innerHTML = `$ ${hard_cash}`;
+        document.querySelector("#checkings_dashboard").innerHTML = `$ ${checkings}`;
+        document.querySelector("#savings_dashboard").innerHTML = `$ ${savings}`;
+        document.querySelector("#other_cash_dashboard").innerHTML = `$ ${other_cash}`;
+        document.querySelector("#total_cash_dashboard").innerHTML = `$ ${total_cash.toFixed(2)}`;
+        
+
+        pie_chart_cash(hard_cash, checkings, savings, other_cash);
+
+
+        //default start/end dates based on entries
+        document.querySelector('#startdate').value = entries[0].date
+        document.querySelector('#enddate').value = entries[entries.length-1].date
+
+        const hard_cash_array = []
+        const checkings_array = []
+        const savings_array = []
+        const other_cash_array = []
+        const dates_array = []
+
+        for (let i=0; i < entries.length; i++) {
+
+            hard_cash_array.push(entries[i].hard_cash);
+            checkings_array.push(entries[i].checkings);
+            savings_array.push(entries[i].savings);
+            other_cash_array.push(entries[i].other_cash);
+            dates_array.push(entries[i].date);
+        }
+
+        line_chart_cash(hard_cash_array, dates_array, checkings_array, savings_array, other_cash_array);
+
+        const max_length = 10;
+
+        //adds button to see all entries if needed
+        if (entries.length > max_length) {
+
+            e="cash"
+            addButton(e)
+
+        };
+
+        entries = entries.reverse()
+        entries = entries.slice(0, max_length)
+        entries = entries.reverse()
+
+
+        //for Table
+        for (let i=0; i < entries.length; i++) {
+
+            //put each entry in both entry table
+            entries.forEach((entry, id) => {
+
+        
+
+                var table = document.querySelector(".cash-table");
+
+                var rows = table.rows.length
+
+                //Stops from adding more rows if the user presses on 'dashboard' button again, while in dashboard
+                if (rows >= entries.length + 2) {
+                    return;
+                }
+                
+                var row = table.insertRow(2);
+                
+                var date = row.insertCell(0);
+                var hard_cash = row.insertCell(1);
+                var checkings = row.insertCell(2);
+                var savings = row.insertCell(3);
+                var other_cash = row.insertCell(4);
+
+                var cell_networth = row.insertCell(5);
+                var total_change = row.insertCell(6);
+                var percent_change = row.insertCell(7);
+
+
+                date.innerHTML = entry.date;
+
+                hard_cash.innerHTML = numberWithCommas(entry.hard_cash);
+                checkings.innerHTML = numberWithCommas(entry.checkings);
+                savings.innerHTML = numberWithCommas(entry.savings);
+                other_cash.innerHTML = numberWithCommas(entry.other_cash);
+
+                cell_networth.innerHTML = numberWithCommas(entry.total_cash);
+
+                // if there are 10 or less entries total
+                if (all_entries.length <= max_length) {
+                            
+
+                    // if last element (if dont assign 0, it will not work)
+                    if (id == 0) {
+                        percent_change.innerHTML = 0;
+                        total_change.innerHTML = 0;
+                        total_change_calc = 0;
+                    }
+                    // if not last entry
+                    else {
+                
+                        if (isNaN((entries[id].total_cash - entries[id-1].total_cash) / entries[id-1].total_cash) || !isFinite((entries[id].total_cash - entries[id-1].total_cash) / entries[id-1].total_cash) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_cash - entries[id-1].total_cash) / entries[id-1].total_cash).toFixed(2) * 100}%`;
+                
+                
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_cash - entries[id-1].total_cash) > 0) {
+                        total_change_calc = (entries[id].total_cash - entries[id-1].total_cash)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_cash - entries[id-1].total_cash)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                }
+                
+                    // if there are more than 10 entries (the reason for this, is due to the 1st entry at the bottom of the table, 
+                    // its "Change since Last", needs to calculate based on previous value which is out of the table) Here we use all_entries NOT entries
+                else {
+                
+                    if (id == 0) {
+                
+                        if (isNaN((all_entries[9].total_cash - all_entries[10].total_cash) / all_entries[10].total_cash) || !isFinite((all_entries[9].total_cash - all_entries[10].total_cash) / all_entries[10].total_cash) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((all_entries[9].total_cash - all_entries[10].total_cash) / all_entries[10].total_cash).toFixed(2) * 100}%`;
+                        }
+                
+                        if ((all_entries[9].total_cash - all_entries[10].total_cash) > 0) {
+                            total_change_calc = (all_entries[9].total_cash - all_entries[10].total_cash)
+                            total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                            }
+                
+                        else {
+                            total_change_calc = (all_entries[9].total_cash - all_entries[10].total_cash)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                
+                    }
+                
+                    else {
+                
+                        if (isNaN((entries[id].total_cash - entries[id-1].total_cash) / entries[id-1].total_cash) || !isFinite((entries[id].total_cash - entries[id-1].total_cash) / entries[id-1].total_cash) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_cash - entries[id-1].total_cash) / entries[id-1].total_cash).toFixed(2) * 100}%`;
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_cash - entries[id-1].total_cash) > 0) {
+                        total_change_calc = (entries[id].total_cash - entries[id-1].total_cash)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_cash - entries[id-1].total_cash)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                    
+                }
+
+
+                // changes the colour of the border depending on value
+                if (total_change.innerHTML[0]  == '-') {
+                    percent_change.style.backgroundColor = "#ff7782";
+                    total_change.style.backgroundColor = "#ff7782"
+                }
+                else if (total_change.innerHTML[0] == '0' ) {
+                    
+                }
+                else {
+                    percent_change.style.backgroundColor = "#41f1b6";
+                    total_change.style.backgroundColor = "#41f1b6";
+                }
+
+
+
+            });
+
+            
+        }
+
+            // Infographic print out
+            // Average Period Increase
+
+            average_period_increase = (all_entries[0].total_cash / all_entries.length).toFixed(2)
+            average_period_increase = numberWithCommas(average_period_increase)
+            document.querySelector("#average_period_cash").innerHTML = `$ ${average_period_increase}`;
+    
+            // Amount Change Dashboard
+            var yes = (all_entries[0].total_cash - all_entries[all_entries.length - 1].total_cash).toFixed(2);
+            document.querySelector("#amount_change_cash").innerHTML = `$ ${yes}`
+
+
+        })  
 
 }
 
@@ -541,6 +776,234 @@ function personal_assets() {
     document.querySelector(".investable-view").style.display = "none";
     document.querySelector(".cash-view").style.display = "none";
     document.querySelector(".liability-view").style.display = "none";
+
+    // API Call to get entry data for the logged in user
+    fetch('/dashboard') 
+    .then(response => response.json())
+    .then(entries => {
+        
+        //sorts entries by date (chronological) - this is incase a user changes a date of an entry to be earlier/later...
+        entries.sort(function(entries,b) {
+            return new Date(entries.date) - new Date(b.date)
+        })
+
+        //used for calculation that need ALL entry sets. Entries below is cut into a set of 10 for table.
+        let all_entries = entries;
+
+        //get most recent entry
+        var newest_entry = (entries[entries.length-1]);
+        
+        //sum each category for charts
+        var total_personal = +newest_entry.principal_residence + +newest_entry.auto + +newest_entry.other_properties + +newest_entry.goods;
+        var principal_residence = newest_entry.principal_residence;
+        var auto = newest_entry.auto;
+        var other_properties = newest_entry.other_properties;
+        var goods = newest_entry.goods;
+
+
+        // Print out total networth on dashboard
+
+        document.querySelector("#principal_residence_dashboard").innerHTML = `$ ${principal_residence}`;
+        document.querySelector("#auto_dashboard").innerHTML = `$ ${auto}`;
+        document.querySelector("#other_properties_dashboard").innerHTML = `$ ${other_properties}`;
+        document.querySelector("#goods_dashboard").innerHTML = `$ ${goods}`;
+        document.querySelector("#total_personal_dashboard").innerHTML = `$ ${total_personal.toFixed(2)}`;
+        
+
+        pie_chart_personal(principal_residence, auto, other_properties, goods);
+
+
+        //default start/end dates based on entries
+        document.querySelector('#startdate').value = entries[0].date
+        document.querySelector('#enddate').value = entries[entries.length-1].date
+
+        const principal_residence_array = []
+        const auto_array = []
+        const other_properties_array = []
+        const goods_array = []
+        const dates_array = []
+
+        for (let i=0; i < entries.length; i++) {
+
+            principal_residence_array.push(entries[i].principal_residence);
+            auto_array.push(entries[i].auto);
+            other_properties_array.push(entries[i].other_properties);
+            goods_array.push(entries[i].goods);
+            dates_array.push(entries[i].date);
+        }
+
+        line_chart_personal(principal_residence_array, dates_array, auto_array, other_properties_array, goods_array);
+
+        const max_length = 10;
+
+        //adds button to see all entries if needed
+        if (entries.length > max_length) {
+
+            e="personal"
+            addButton(e)
+
+        };
+
+        entries = entries.reverse()
+        entries = entries.slice(0, max_length)
+        entries = entries.reverse()
+
+
+        //for Table
+        for (let i=0; i < entries.length; i++) {
+
+            //put each entry in both entry table
+            entries.forEach((entry, id) => {
+
+        
+
+                var table = document.querySelector(".personal-table");
+
+                var rows = table.rows.length
+
+                //Stops from adding more rows if the user presses on 'dashboard' button again, while in dashboard
+                if (rows >= entries.length + 2) {
+                    return;
+                }
+                
+                var row = table.insertRow(2);
+                
+                var date = row.insertCell(0);
+                var principal_residence = row.insertCell(1);
+                var auto = row.insertCell(2);
+                var other_properties = row.insertCell(3);
+                var goods = row.insertCell(4);
+
+                var cell_networth = row.insertCell(5);
+                var total_change = row.insertCell(6);
+                var percent_change = row.insertCell(7);
+
+
+                date.innerHTML = entry.date;
+
+                principal_residence.innerHTML = numberWithCommas(entry.principal_residence);
+                auto.innerHTML = numberWithCommas(entry.auto);
+                other_properties.innerHTML = numberWithCommas(entry.other_properties);
+                goods.innerHTML = numberWithCommas(entry.goods);
+
+                cell_networth.innerHTML = numberWithCommas(entry.total_personal);
+
+                // if there are 10 or less entries total
+                if (all_entries.length <= max_length) {
+                            
+
+                    // if last element (if dont assign 0, it will not work)
+                    if (id == 0) {
+                        percent_change.innerHTML = 0;
+                        total_change.innerHTML = 0;
+                        total_change_calc = 0;
+                    }
+                    // if not last entry
+                    else {
+                
+                        if (isNaN((entries[id].total_personal - entries[id-1].total_personal) / entries[id-1].total_personal) || !isFinite((entries[id].total_personal - entries[id-1].total_personal) / entries[id-1].total_personal) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_personal - entries[id-1].total_personal) / entries[id-1].total_personal).toFixed(2) * 100}%`;
+                
+                
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_personal - entries[id-1].total_personal) > 0) {
+                        total_change_calc = (entries[id].total_personal - entries[id-1].total_personal)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_personal - entries[id-1].total_personal)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                }
+                
+                    // if there are more than 10 entries (the reason for this, is due to the 1st entry at the bottom of the table, 
+                    // its "Change since Last", needs to calculate based on previous value which is out of the table) Here we use all_entries NOT entries
+                else {
+                
+                    if (id == 0) {
+                
+                        if (isNaN((all_entries[9].total_personal - all_entries[10].total_personal) / all_entries[10].total_personal) || !isFinite((all_entries[9].total_personal - all_entries[10].total_personal) / all_entries[10].total_personal) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((all_entries[9].total_personal - all_entries[10].total_personal) / all_entries[10].total_personal).toFixed(2) * 100}%`;
+                        }
+                
+                        if ((all_entries[9].total_personal - all_entries[10].total_personal) > 0) {
+                            total_change_calc = (all_entries[9].total_personal - all_entries[10].total_personal)
+                            total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                            }
+                
+                        else {
+                            total_change_calc = (all_entries[9].total_personal - all_entries[10].total_personal)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                
+                    }
+                
+                    else {
+                
+                
+                        if (isNaN((entries[id].total_personal - entries[id-1].total_personal) / entries[id-1].total_personal) || !isFinite((entries[id].total_personal - entries[id-1].total_personal) / entries[id-1].total_personal) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_personal - entries[id-1].total_personal) / entries[id-1].total_personal).toFixed(2) * 100}%`;
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_personal - entries[id-1].total_personal) > 0) {
+                        total_change_calc = (entries[id].total_personal - entries[id-1].total_personal)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_personal - entries[id-1].total_personal)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                    
+                }
+
+                // changes the colour of the border depending on value
+                if (total_change.innerHTML[0]  == '-') {
+                    percent_change.style.backgroundColor = "#ff7782";
+                    total_change.style.backgroundColor = "#ff7782"
+                }
+                else if (total_change.innerHTML[0] == '0' ) {
+                    
+                }
+                else {
+                    percent_change.style.backgroundColor = "#41f1b6";
+                    total_change.style.backgroundColor = "#41f1b6";
+                }
+
+            })
+            
+        }
+
+            // Infographic print out
+            // Average Period Increase
+
+            average_period_increase = (all_entries[0].total_personal / all_entries.length).toFixed(2)
+            average_period_increase = numberWithCommas(average_period_increase)
+            document.querySelector("#average_period_personal").innerHTML = `$ ${average_period_increase}`;
+
+            // Amount Change Dashboard
+            var yes = (all_entries[0].total_personal - all_entries[all_entries.length - 1].total_personal).toFixed(2);
+            document.querySelector("#amount_change_personal").innerHTML = `$ ${yes}`
+
+
+        })  
     
 }
 
@@ -554,6 +1017,232 @@ function liability() {
     document.querySelector(".investable-view").style.display = "none";
     document.querySelector(".cash-view").style.display = "none";
     document.querySelector(".personal-assets-view").style.display = "none";     
+
+    // API Call to get entry data for the logged in user
+    fetch('/dashboard') 
+    .then(response => response.json())
+    .then(entries => {
+        
+        //sorts entries by date (chronological) - this is incase a user changes a date of an entry to be earlier/later...
+        entries.sort(function(entries,b) {
+            return new Date(entries.date) - new Date(b.date)
+        })
+
+        //used for calculation that need ALL entry sets. Entries below is cut into a set of 10 for table.
+        let all_entries = entries;
+
+        //get most recent entry
+        var newest_entry = (entries[entries.length-1]);
+        
+        //sum each category for charts
+        var total_liability = +newest_entry.mortgages + +newest_entry.consumer_debt + +newest_entry.loans + +newest_entry.other_debt;
+        var mortgages = newest_entry.mortgages;
+        var consumer_debt = newest_entry.consumer_debt;
+        var loans = newest_entry.loans;
+        var other_debt = newest_entry.other_debt;
+
+
+        // Print out total networth on dashboard
+
+        document.querySelector("#mortgage_dashboard").innerHTML = `$ ${mortgages}`;
+        document.querySelector("#consumer_debt_dashboard").innerHTML = `$ ${consumer_debt}`;
+        document.querySelector("#loan_dashboard").innerHTML = `$ ${loans}`;
+        document.querySelector("#other_debt_dashboard").innerHTML = `$ ${other_debt}`;
+        document.querySelector("#total_liability_dashboard").innerHTML = `$ ${total_liability.toFixed(2)}`;
+        
+        pie_chart_liability(mortgages, consumer_debt, loans, other_debt);
+
+        //default start/end dates based on entries
+        document.querySelector('#startdate').value = entries[0].date
+        document.querySelector('#enddate').value = entries[entries.length-1].date
+
+        const mortgages_array = []
+        const consumer_debt_array = []
+        const loans_array = []
+        const other_debt_array = []
+        const dates_array = []
+
+        for (let i=0; i < entries.length; i++) {
+
+            mortgages_array.push(entries[i].mortgages);
+            consumer_debt_array.push(entries[i].consumer_debt);
+            loans_array.push(entries[i].loans);
+            other_debt_array.push(entries[i].other_debt);
+            dates_array.push(entries[i].date);
+        }
+
+        line_chart_liability(mortgages_array, dates_array, consumer_debt_array, loans_array, other_debt_array);
+
+        const max_length = 10;
+
+        //adds button to see all entries if needed
+        if (entries.length > max_length) {
+
+            e="liability"
+            addButton(e)
+
+        };
+
+        entries = entries.reverse()
+        entries = entries.slice(0, max_length)
+        entries = entries.reverse()
+
+
+        //for Table
+        for (let i=0; i < entries.length; i++) {
+
+            //put each entry in both entry table
+            entries.forEach((entry, id) => {
+
+                var table = document.querySelector(".liability-table");
+
+                var rows = table.rows.length
+
+                //Stops from adding more rows if the user presses on 'dashboard' button again, while in dashboard
+                if (rows >= entries.length + 2) {
+                    return;
+                }
+                
+                var row = table.insertRow(2);
+                
+                var date = row.insertCell(0);
+                var mortgages = row.insertCell(1);
+                var consumer_debt = row.insertCell(2);
+                var loans = row.insertCell(3);
+                var other_debt = row.insertCell(4);
+
+                var cell_networth = row.insertCell(5);
+                var total_change = row.insertCell(6);
+                var percent_change = row.insertCell(7);
+
+
+                date.innerHTML = entry.date;
+
+                mortgages.innerHTML = numberWithCommas(entry.mortgages);
+                consumer_debt.innerHTML = numberWithCommas(entry.consumer_debt);
+                loans.innerHTML = numberWithCommas(entry.loans);
+                other_debt.innerHTML = numberWithCommas(entry.other_debt);
+
+                cell_networth.innerHTML = numberWithCommas(entry.total_liability);
+
+                // if there are 10 or less entries total
+                if (all_entries.length <= max_length) {
+                            
+
+                    // if last element (if dont assign 0, it will not work)
+                    if (id == 0) {
+                        percent_change.innerHTML = 0;
+                        total_change.innerHTML = 0;
+                        total_change_calc = 0;
+                    }
+                    // if not last entry
+                    else {
+                
+                        if (isNaN((entries[id].total_liability - entries[id-1].total_liability) / entries[id-1].total_liability) || !isFinite((entries[id].total_liability - entries[id-1].total_liability) / entries[id-1].total_liability) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_liability - entries[id-1].total_liability) / entries[id-1].total_liability).toFixed(2) * 100}%`;
+                
+                
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_liability - entries[id-1].total_liability) > 0) {
+                        total_change_calc = (entries[id].total_liability - entries[id-1].total_liability)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_liability - entries[id-1].total_liability)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                }
+                
+                    // if there are more than 10 entries (the reason for this, is due to the 1st entry at the bottom of the table, 
+                    // its "Change since Last", needs to calculate based on previous value which is out of the table) Here we use all_entries NOT entries
+                else {
+                
+                    if (id == 0) {
+                
+                        if (isNaN((all_entries[9].total_liability - all_entries[10].total_liability) / all_entries[10].total_liability) || !isFinite((all_entries[9].total_liability - all_entries[10].total_liability) / all_entries[10].total_liability) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((all_entries[9].total_liability - all_entries[10].total_liability) / all_entries[10].total_liability).toFixed(2) * 100}%`;
+                        }
+                
+                        if ((all_entries[9].total_liability - all_entries[10].total_liability) > 0) {
+                            total_change_calc = (all_entries[9].total_liability - all_entries[10].total_liability)
+                            total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                            }
+                
+                        else {
+                            total_change_calc = (all_entries[9].total_liability - all_entries[10].total_liability)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                
+                    }
+                
+                    else {
+                
+                        
+                        if (isNaN((entries[id].total_liability - entries[id-1].total_liability) / entries[id-1].total_liability) || !isFinite((entries[id].total_liability - entries[id-1].total_liability) / entries[id-1].total_liability) ){
+                            percent_change.innerHTML = "n/a"
+                        }
+                        else {
+                            percent_change.innerHTML += `${((entries[id].total_liability - entries[id-1].total_liability) / entries[id-1].total_liability).toFixed(2) * 100}%`;
+                        }
+                
+                    
+                        //adds a + symbol infront of positive integers
+                        if ((entries[id].total_liability - entries[id-1].total_liability) > 0) {
+                        total_change_calc = (entries[id].total_liability - entries[id-1].total_liability)
+                        total_change.innerHTML += `+ ${total_change_calc.toLocaleString()}`;
+                        }
+                
+                        else {
+                            total_change_calc = (entries[id].total_liability - entries[id-1].total_liability)
+                            total_change.innerHTML = total_change_calc.toLocaleString();
+                        }
+                    }
+                    
+                }
+
+
+                // changes the colour of the border depending on value
+                if (total_change.innerHTML[0]  == '-') {
+                    percent_change.style.backgroundColor = "#ff7782";
+                    total_change.style.backgroundColor = "#ff7782"
+                }
+                else if (total_change.innerHTML[0] == '0' ) {
+                    
+                }
+                else {
+                    percent_change.style.backgroundColor = "#41f1b6";
+                    total_change.style.backgroundColor = "#41f1b6";
+                }
+
+            });
+
+            
+        }
+
+            // Infographic print out
+            // Average Period Increase
+
+            average_period_increase = (all_entries[0].total_liability / all_entries.length).toFixed(2)
+            average_period_increase = numberWithCommas(average_period_increase)
+            document.querySelector("#average_period_liability").innerHTML = `$ ${average_period_increase}`;
+
+            // Amount Change Dashboard
+            var yes = (all_entries[0].total_liability - all_entries[all_entries.length - 1].total_liability).toFixed(2);
+            document.querySelector("#amount_change_liability").innerHTML = `$ ${yes}`
+
+
+        })  
 
 }
 
@@ -622,20 +1311,15 @@ function dashboard() {
 
         line_chart(networth_array, dates_array);
 
-        var total_change_sum = 0;
-
         const max_length = 10;
 
         //adds button to see all entries if needed
         if (entries.length > max_length) {
 
-            var button = document.createElement('button');
-            button.innerHTML = "View all entries";
-            
-            document.querySelector('.dashboard-data-button').append(button);
-            button.addEventListener("click", all_entries);
-
+            e="dashboard"
+            addButton(e)
         };
+
 
         entries = entries.reverse()
         entries = entries.slice(0, max_length)
@@ -775,7 +1459,7 @@ function dashboard() {
                             percent_change.innerHTML = "n/a"
                         }
                         else {
-                            percent_change.innerHTML += `${((entries[id].total_networth - entries[id-1].total_networth) / entries[id-1].total_networth).toFixed(2) * 100}%`;
+                            percent_change.innerHTML += `${((entries[id].total_networth - entries[id-1].total_networth) / entries[id-1].total_networth).toFixed(3) * 100}%`;
                         }
     
                     
@@ -794,7 +1478,7 @@ function dashboard() {
                 }
                     
                 // changes the colour of the border
-                if (percent_change.innerHTML[0] == '-') {
+                if (total_change.innerHTML[0] == '-') {
                     percent_change.style.backgroundColor = "#ff7782";
                     total_change.style.backgroundColor = "#ff7782"
                 }
@@ -823,6 +1507,17 @@ function dashboard() {
 
 
     })  
+
+}
+
+function addButton(e) {
+
+    console.log(e)
+    var button = document.createElement('button');
+    button.innerHTML = "View all entries";
+
+    document.querySelector(`.${e}-data-button`).append(button);
+    button.addEventListener('click', all_entries);
 
 }
 
@@ -994,7 +1689,7 @@ function all_entries() {
             }
 
             // changes the colour of the border
-            if (percent_change.innerHTML[0] == '-') {
+            if (total_change.innerHTML[0]  == '-') {
                 percent_change.style.backgroundColor = "#ff7782";
                 total_change.style.backgroundColor = "#ff7782"
             }
@@ -1014,12 +1709,18 @@ function all_entries() {
 
 }
 
+
+
 document.querySelectorAll(".form-group").forEach(range => {
     const slider = range.querySelector('input[type=range]');
     const output = range.querySelector('.number-input input');
     output.innerHTML = slider.value; // Display the default slider value
     slider.addEventListener('input', () => {
       output.value = slider.value;
-    });
+});
+
+
+
+
   });
 

@@ -112,7 +112,8 @@ def submit(request):
             total_investable=total_investable,
             total_crypto=total_crypto,
             total_cash=total_cash,
-            total_personal=total_personal
+            total_personal=total_personal,
+            total_liability=total_liability
         )
         entry.save()
 
