@@ -460,9 +460,17 @@ input[type=number] {
 }
 
 
-button {
+#menu-btn {
     display: none;
+}
 
+.all-entries-btn {
+    margin-top: 0.8rem;
+    background: transparent;
+    border-radius: 2px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .material-icons-sharp{
@@ -517,11 +525,7 @@ button {
 
     button {
         display: none;
-
     }
-
-
-    
 
 }
 
@@ -531,6 +535,7 @@ button {
         width: 100%;
         grid-template-columns: 1fr;
     }
+
 
     aside {
         position: fixed;
@@ -555,9 +560,7 @@ button {
       margin-left: 4rem;
     }
 
-    .material-icons-sharp {
-        margin-top: 0.4rem;
-    }
+
 
     aside .sidebar h3 {
         display: inline; 
@@ -616,20 +619,20 @@ button {
         gap: 1;
     }
 
-    button {
+    #menu-btn {
         display: inline-block;
         cursor: pointer;
         background: transparent;
         color: var(--color-dark);
         position: absolute;
         margin: 1rem;
+        margin-top: 1.2rem;
     }
-
     
 .top a {
     right: 20%;
-
 }
+
 }
 
 

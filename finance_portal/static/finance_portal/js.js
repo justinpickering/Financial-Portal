@@ -24,11 +24,6 @@ const sidebar = document.querySelector('.sidebar');
 
 const children = sidebar.querySelectorAll(':scope > div');
 
-children.addEventListener("click", functionss);
-
-function functionss() {
-    console.log("yes");
-};
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -1512,9 +1507,11 @@ function dashboard() {
 
 function addButton(e) {
 
-    console.log(e)
+    console.log(e, "okl")
     var button = document.createElement('button');
     button.innerHTML = "View all entries";
+    button.classList.add("all-entries-btn");
+    
 
     document.querySelector(`.${e}-data-button`).append(button);
     button.addEventListener('click', all_entries);
