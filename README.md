@@ -66,12 +66,12 @@ First, clone the git repo. Open your terminal and navigate to the directory you 
 
 Once the repo is cloned, navigate into the repository:
 
-`cd Capstone`
+`cd CS50WebCapstone`
 
 Create a vitural environment and acitive it using the following commands:
 
 `py -m venv venv`
-`source venv/bin/activate`
+`venv\Scripts\activate`
 
 Once you've activated your virtual environment, install the python packages by running:
 
