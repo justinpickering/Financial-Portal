@@ -23,7 +23,7 @@ can be compared to previous entries, and its breakdown can be visualized in "Ins
 
 # Distinctiveness and Complexity
 
-This financial portal application is distinct from previous course projects because it is not a social network, an e-commerce site or a mailing site. The complexity of this application comes from it being semi-completely dynamic (except for login, register and data entry) as an application that relies heavilty on Javascript for all front-end processes, pulling data from the back-end dynamically via fetch requests for API calls to the backend. Additionally, ChartJS Library was taken advantage to provide a visual interface in the form of a pie and line chart. The charts update dynamically depending on the page that the user is accessing... TBD
+This financial portal application is distinct from previous course projects because it is not a social network, an e-commerce site or a mailing site. The complexity of this application comes from it being semi-completely dynamic (except for login, register and data entry) as an application that relies heavilty on Javascript for all front-end processes, pulling data from the back-end dynamically via fetch requests for API calls to the backend. Additionally, ChartJS Library was taken advantage to provide a visual interface in the form of a pie and line chart. The charts update dynamically depending on the page that the user is accessing... TBD web responsiveness
 
 # File Contents
 
@@ -55,3 +55,32 @@ This financial portal application is distinct from previous course projects beca
 
 
 # How to run
+
+You will need to have a version of python 3 installed. Check this by using the following command:
+
+`py --version`
+
+First, clone the git repo. Open your terminal and navigate to the directory you wish to store the project and run the following commands:
+
+`git clone https://github.com/Jpickzors/CS50WebCapstone.git`
+
+Once the repo is cloned, navigate into the repository:
+
+`cd Capstone`
+
+Create a vitural environment and acitive it using the following commands:
+
+`python3 -m venv venv`
+`source venv/bin/activate`
+
+Once you've activated your virtual environment, install the python packages by running:
+
+`pip install -r requirements.txt`
+
+Now, migrate the django project:
+
+`py manage.py migrate`
+
+Finally, to the application open on your server, run:
+
+`py manage.py runserver`
