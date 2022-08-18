@@ -70,7 +70,7 @@ Once the repo is cloned, navigate into the repository:
 
 Create a vitural environment and acitive it using the following commands:
 
-`python3 -m venv venv`
+`py -m venv venv`
 `source venv/bin/activate`
 
 Once you've activated your virtual environment, install the python packages by running:
