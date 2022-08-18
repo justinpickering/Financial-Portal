@@ -23,7 +23,7 @@
     --card-padding: 1.8rem;
     --padding-1: 1.2rem;
 
-    --box-shadow: 0 1rem 1rem var(--color-light)
+    --box-shadow: 0 1rem 1rem var(--color-light);
 
 }
 
@@ -635,4 +635,61 @@ input[type=number] {
 
 }
 
+/****Login and Register ******/
 
+#login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-background);
+  }
+
+.login-container {
+    width: 380px;
+    padding: 40px 30px 50px 30px;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
+}
+
+
+
+.login-container form {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+
+.login-container input{
+  width: 100%;
+  height: 100%;
+  outline: none;
+  padding: 4px 8px;
+  font-size: 18px;
+  background: none;
+  caret-color: #5372F0;
+  border-radius: 5px;
+  border: 1px solid #bfbfbf;
+  border-bottom-width: 2px;
+  transition: all 0.2s ease;
+}
+
+.login-container a{
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+form input[type="submit"]:hover{
+background: var(--color-primary);
+} 
+
+.logo-login {
+    margin-bottom: 2rem;
+}
+
+.login-alert {
+    color: var(--color-danger);
+}
