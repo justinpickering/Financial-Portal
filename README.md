@@ -1,11 +1,11 @@
 # Introduction
 
-This website is a financial portal to track and visualize your total Networth (assets and liabilities). The website is comprised of various sections for the user to understand the breakdown of their assets and liabilities in dollar values. Users can upload their net worth data to the database in the "Add Entry" section. In this section, users can input data (in dollars, $) for the following:
+This web application is a financial portal to track and visualize your total net worth (assets and liabilities). It is comprised of various sections for the user to understand the breakdown of their assets and liabilities in dollar values. Users can upload their net worth data to the database in the "Add Entry" section. In this section, users can input data (in dollars, $) for the following:
 
 Assets:
 - Investable Assets (Taxable, TFSA, RRSP and other Investable Accounts) 
 - Cryptocurrency Assets (Bitcoin, Ethereum and Other)
-- Cash Holdings (Hard Cash, Checkings, Savings, and Other Cash Holdings)
+- Cash Holdings (Hard Cash, Checking, Savings, and Other Cash Holdings)
 - Personal Assets (Principal Residence, Auto, Other Properties and Physical Goods)
 
 Liabilities:
@@ -16,17 +16,13 @@ Liabilities:
 
 Once submitted, the data is added as an "entry". The user can visualize the entry in the different sections of the website, with each section providing a detailed breakdown of the category in the form of Insights (totals, pie chart and infographic), Line Chart (of all submitted entries over time) and Data Table (of the last 10 entries. If more than 10 entries, a button appears to direct the user to the "All Entries" section).
 
-The application was built using Django as the backend framework and JavaScript as the frontend programming language. All data is saved in the default database (SQLite)
-
-
-can be compared to previous entries, and its breakdown can be visualized in "Insights" section  TBD...
+The application was built using Django as the backend framework and JavaScript as the frontend programming language. All data is saved in the default database (SQLite).
 
 # Distinctiveness and Complexity
 
-This financial portal application is distinct from previous course projects because it is not a social network, an e-commerce site or a mailing site. The complexity of this application comes from it being semi-completely dynamic (except for login, register and data entry) as an application that relies heavilty on Javascript for all front-end processes, pulling data from the back-end dynamically via fetch requests for API calls to the backend. Additionally, ChartJS Library was taken advantage to provide a visual interface in the form of a pie and line chart. The charts update dynamically depending on the page that the user is accessing... TBD web responsiveness
+This financial portal web application is distinct from previous course projects because it is not a social network, an e-commerce site, or a mailing site. The complexity of this application comes from it being semi-dynamic (except for login, register and data entry submits) as an application that relies heavily on JavaScript for all front-end processes, pulling data from the back end dynamically via fetch requests for API calls. Additionally, ChartJS Library is used to provide a visual interface in the form of a pie and line chart. The charts update dynamically depending on the page that the user is accessing. The website is responsive; it adjusts automatically if viewed from mobile, or from larger screens like tablets with the use of distinct styling based on screen size.
 
 # File Contents
-
 - capstone - main project folder
 
     - finance_portal - main application folder
@@ -45,7 +41,7 @@ This financial portal application is distinct from previous course projects beca
 
         - admin.py - admin classes added for admin visualization of models
         - apps.py - app name ("finance_portal") configured 
-        - models.py - contains two models used in this project. User (with AbstractUser) and Networth for networth asset and liability data
+        - models.py - contains two models used in this project. 'User' (with AbstractUser) and 'Networth' for net worth asset and liability data
         - urls.py - all application URL paths
         - views.py - application views (backend logic) for database entries, JSON Response (API) and html template registering
 
@@ -54,7 +50,7 @@ This financial portal application is distinct from previous course projects beca
     - requirements.txt - list of libraries required to run the application
 
 
-# How to run
+# How to Run
 
 You will need to have a version of python 3 installed. Check this by using the following command:
 
