@@ -393,9 +393,7 @@ table, th, td {
 
 /* ================Add Entries ================*/
 
-.form {
-    border: 1px red solid;
-}
+
 .form-container {
 
     background: var(--color-white);
@@ -409,7 +407,6 @@ table, th, td {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px red solid;
     flex-wrap: wrap;
 }
 
