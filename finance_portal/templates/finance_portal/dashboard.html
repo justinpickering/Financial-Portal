@@ -814,58 +814,66 @@
                         <h2>Savings and Investments:</h2>
 
                         <div class="form-group">
-                            Non-Registered investments (Taxable):
 
-                            <span class="range-wrap">
+                            <div class="category">
+                                Non-Registered investments (Taxable):
+                            </div>
+                            <div class="range-wrap">
                                 <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                <span class="number-input">
-                                    <span class="dollar-symbol">$</span>
-                                    <input type="number" id="demo" class="submit-taxable" value=0>
-                                </span>
-                            </span>                                
+                            </div>
+                            <div class="number-input">
+                                <div class="dollar-sign">$</div>
+                                <input type="number" id="demo" class="submit-taxable" value=0>
+                            </div>
+                                                         
                         </div>
 
                         <div class="form-group">
-                            Tax-free savings account (TFSA):
-                        
-                            <span class="range-wrap">
+  
+                            <div class="category">
+                                Tax-free savings account (TFSA):
+                            </div>
+                            <div class="range-wrap">
                                 <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                <span class="number-input">
-                                    <span class="dollar-symbol">$</span>
-                                    <input type="number" id="demo" class="submit-tfsa" value=0 >
-                                </span>
-                            </span>
-
-                        </div>
-
-
-                        <div class="form-group">
-                            Registered Retirement Savings (ex: RRSP): 
-
-                            <span class="range-wrap">
-                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                <span class="number-input">
-                                    <span class="dollar-symbol">$</span>
-                                    <input type="number" id="demo" class="submit-rrsp" value=0>
-                                </span>
-                            </span>
-                        
+                            </div>   
+                            <div class="number-input">
+                                <div class="dollar-sign">$</div>
+                                <input type="number" id="demo" class="submit-tfsa" value=0>
+                            </div>
+                                    
                         </div>
 
 
                         <div class="form-group">
-                            Other: 
-                            <span class="range-wrap">
-                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
 
-                                <span class="number-input">
-                                    <span class="dollar-symbol">$</span>
-                                    <input type="number" id="demo" class="submit-investment-other" value=0>
-                                </span>
-                            </span>
+
+                            <div class="category">
+                                Registered Retirement Savings (ex: RRSP): 
+                            </div>
+                            <div class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                            </div>   
+                            <div class="number-input">
+                                <div class="dollar-sign">$</div>
+                                <input type="number" id="demo" class="submit-rrsp" value=0>
+                            </div>
+                                    
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <div class="category">
+                                Other: 
+                            </div>
+                            <div class="range-wrap">
+                                <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                            </div>   
+                            <div class="number-input">
+                                <div class="dollar-sign">$</div>
+                                <input type="number" id="demo" class="submit-investment-other" value=0>
+                            </div>
+                                    
                         </div>
                     </div>
 
@@ -873,47 +881,44 @@
                         <h2>Crypto:</h2>
 
                         <div class="form-group">
-                            Bitcoin:
-                            <span class="range-wrap">
+
+                            <div class="category">
+                                Bitcoin:
+                            </div>
+                            <div class="range-wrap">
                                 <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-                            </span>
-                            <span class="bitcoin-CAD">
-                                BTC in CAD:
-                                <input type="number" disabled>
-                            </span>
-                            <span class="number-input">
-                                <span class="dollar-symbol">$</span>
-                                <input type="number"  id="demo" class="submit-bitcoin"  value=0>
-                            </span>
+                            </div>   
+                            <div class="number-input">
+                                <div class="dollar-sign">$</div>
+                                <input type="number" id="demo" class="submit-bitcoin" value=0>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            Ethereum:
-                            <span class="range-wrap">
+            
+                            <div class="category">
+                                Ethereum:
+                            </div>
+                            <div class="range-wrap">
                                 <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-                                <span class="ethereum-CAD">
-                                    ETH in CAD:
-                                    <input type="number" disabled>
-                                </span>
-                                <span class="number-input">
-                                    <span class="dollar-symbol">$</span>
-                                    <input type="number" id="demo" class="submit-ethereum" value=0>
-                                </span>
-                            </span>
+                            </div>   
+                            <div class="number-input">
+                                <div class="dollar-sign">$</div>
+                                <input type="number" id="demo" class="submit-ethereum" value=0>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            Other Crypto: 
-
-                            <span class="range-wrap">
+                            <div class="category">
+                                Other Crypto:
+                            </div>
+                            <div class="range-wrap">
                                 <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                <span class="number-input">
-                                    <span class="dollar-symbol">$</span>
-                                    <input type="number" id="demo" class="submit-crypto-other" value=0>
-                                </span>
-                            </span>
-
+                            </div>   
+                            <div class="number-input">
+                                <div class="dollar-sign">$</div>
+                                <input type="number" id="demo" class="submit-crypto-other" value=0>
+                            </div>
                         </div>
 
                     </div>
@@ -923,54 +928,59 @@
                             <h2>Cash:</h2>
 
                             <div class="form-group">
-                                Hard Cash:
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Hard Cash:
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-hard-cash" value=0>
-                                    </span>
-                                </span>
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-hard-cash" value=0>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                Checkings Account:
 
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Checkings Account:
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-checking" value=0>
-                                    </span>
-                                </span>
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-checking" value=0>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                Savings Account: 
-
-                                <span class="range-wrap">
+            
+                                <div class="category">
+                                    Savings Account: 
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-savings" value=0>
-                                    </span>
-                                </span>
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-savings" value=0>
+                                </div>
 
                             </div>
                             <div class="form-group">
-                                Other Accounts: 
 
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Other Accounts: 
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-cash-other" value=0>
+                                </div>
 
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-cash-other" value=0>
-                                    </span>
-                                </span>
                             </div>
                     </div>
 
@@ -981,52 +991,63 @@
                             <h2>Property and other assets:</h2>
 
                             <div class="form-group">
-                                Principal Residence:
 
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Principal Residence:
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-principal-residence" value=0>
+                                </div>
 
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-principal-residence" value=0>
-                                    </span>
-                                </span>
                             </div>
+
                             <div class="form-group">
-                                Vehicle(s):
 
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Vehicle(s):
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-auto" value=0>
+                                </div>
 
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-auto" value=0>
-                                    </span>
-                                </span>
                             </div>
+
                             <div class="form-group">
-                                Other Properties:
-
-                                <span class="range-wrap">
+        
+                                <div class="category">
+                                    Other Properties:
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-properties-other" value=0>
+                                </div>
 
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-properties-other" value=0>
-                                    </span>
-                                </span>
                             </div>
+
                             <div class="form-group">
-                                Other Valuables:
 
-                                <span class="range-wrap">
+
+                                <div class="category">
+                                    Other Valuables:
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-valuables" value=0>
-                                    </span>
-                                </span>
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-valuables" value=0>
+                                </div>
                                 
                             </div>
                     </div>
@@ -1036,57 +1057,69 @@
                             <h2>Liabilities:</h2>
 
                             <div class="form-group">
-                                Mortgages:
+                    
 
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Mortgages:
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
-
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-mortgages" value=0>
-                                    </span>
-                                </span>
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-mortgages" value=0>
+                                </div>
 
                             </div>
+                            
                             <div class="form-group">
-                                Consumer Debt:
 
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Consumer Debt:
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-consumer-debt" value=0>
+                                </div>
 
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-consumer-debt" value=0>
-                                    </span>
-                                </span>
                             </div>
+
                             <div class="form-group">
-                                Loans: 
+
                                 
-                                <span class="range-wrap">
+                                <div class="category">
+                                    Loans: 
+                                </div>
+                                <div class="range-wrap">
                                     <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-loans" value=0>
+                                </div>
 
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-loans" value=0>
-                                    </span>
-                                </span>
                             </div>
-                            <div class="form-group">
-                                Other debt:
-                                
-                                <span class="range-wrap">
-                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
 
-                                    <span class="number-input">
-                                        <span class="dollar-symbol">$</span>
-                                        <input type="number" id="demo" class="submit-debt-other" value=0>
-                                    </span>
-                                </span>
+                            <div class="form-group">
+
+                                
+                                <div class="category">
+                                    Other debt:
+                                </div>
+                                <div class="range-wrap">
+                                    <input type="range" class="form-range" min="0" max="5000000" step="5000" value="0" id="customRange">
+                                </div>   
+                                <div class="number-input">
+                                    <div class="dollar-sign">$</div>
+                                    <input type="number" id="demo" class="submit-debt-other" value=0>
+                                </div>
                             </div>
                     </div>
 
-                            <input type="submit" class="btn btn-primary"/> 
+                            <input type="submit" class="btn btn-primary add-entry-button"/> 
                                     
                 </form>
 

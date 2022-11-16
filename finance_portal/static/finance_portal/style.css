@@ -393,13 +393,39 @@ table, th, td {
 
 /* ================Add Entries ================*/
 
+.form {
+    border: 1px red solid;
+}
 .form-container {
 
     background: var(--color-white);
     padding: var(--card-padding);
     margin: 2rem;
-    border-radius: var(--card-border-radius); 
+    border-radius: var(--card-border-radius);
 
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px red solid;
+    flex-wrap: wrap;
+}
+
+.number-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group > .category {
+    width: 14rem;
+
+}
+
+.number-input > .dollar-sign {
+    margin-right: 2px;
 }
 
 .entry-view .form-container > div {
@@ -410,19 +436,12 @@ table, th, td {
     
 }
 
-
-
-.entry-view .dollar-symbol {
-    position: absolute; 
-    margin-left: 1px;
-    margin-top: 1px;
-
+.add-entry-button {
+    margin-left: 2rem;
 }
 
-input[type=number] {
-    padding-left: 15px;
 
-}
+
 
 .bitcoin-CAD {
 
@@ -441,23 +460,6 @@ input[type=number] {
 }
 
 
-.entry-view .number-input {
-  
-    position: absolute;
-
-    right: 5%;
-    margin-left: 10px;
-
-}
-
-.form-range {
-   
-    position: absolute;
-    background: var(--color-white);
-    border-radius: 1rem;
-    cursor: pointer;
-    border: 1.5px solid var(--color-info-light);
-}
 
 
 #menu-btn {
